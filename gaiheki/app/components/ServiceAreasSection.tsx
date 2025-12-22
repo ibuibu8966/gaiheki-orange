@@ -123,43 +123,19 @@ const ServiceAreasSection = () => {
 
   return (
     <section id="service-areas" className="relative py-16 md:py-24 px-4 overflow-hidden">
-      {/* 背景画像 */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(75, 65, 55, 0.9), rgba(60, 50, 40, 0.95)), url('https://images.unsplash.com/photo-1480796927426-f609979314bd?w=1920')`,
-        }}
-      />
+      {/* 背景 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#4b4137] to-[#3c3228]" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* ヘッダー */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-10">
-          {/* 左: タイトル */}
-          <div className="mb-6 lg:mb-0">
-            <div className="flex items-center gap-2 mb-2">
-              <svg className="w-6 h-6 text-[#f16f21]" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-              </svg>
-              <h2 className="text-2xl md:text-3xl font-bold text-white">
-                エリアから外壁・屋根塗装の<br />
-                優良業者を探す
-              </h2>
-            </div>
-          </div>
-
-          {/* 右: 統計 */}
-          <div className="flex items-center gap-6 text-white">
-            <div className="flex items-baseline gap-1">
-              <span className="text-sm text-gray-300">累計利用者数</span>
-              <span className="text-3xl md:text-4xl font-bold">65</span>
-              <span className="text-sm">万人</span>
-            </div>
-            <div className="w-px h-8 bg-gray-500" />
-            <div className="flex items-baseline gap-1">
-              <span className="text-sm text-gray-300">登録施工店</span>
-              <span className="text-3xl md:text-4xl font-bold">5,500</span>
-              <span className="text-sm">社以上</span>
-            </div>
+        <div className="mb-10">
+          <div className="flex items-center gap-2 mb-2">
+            <svg className="w-6 h-6 text-[#f16f21]" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+            </svg>
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              エリアから外壁・屋根塗装の優良業者を探す
+            </h2>
           </div>
         </div>
 

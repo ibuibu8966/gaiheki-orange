@@ -18,8 +18,6 @@ const JapanMapDots = () => {
         id="map-hokkaido"
       />
 
-      {/* 地域ラベル: 北海道 */}
-      <text x="390" y="130" fill="rgba(255,255,255,0.8)" fontSize="12" fontWeight="bold">北海道</text>
 
       {/* 関東 */}
       <path
@@ -28,8 +26,6 @@ const JapanMapDots = () => {
         id="map-kanto"
       />
 
-      {/* 地域ラベル: 関東 */}
-      <text x="340" y="375" fill="rgba(255,255,255,0.8)" fontSize="12" fontWeight="bold">関東</text>
 
       {/* 東海 */}
       <path
@@ -38,8 +34,6 @@ const JapanMapDots = () => {
         id="map-tokai"
       />
 
-      {/* 地域ラベル: 東海 */}
-      <text x="255" y="400" fill="rgba(255,255,255,0.8)" fontSize="12" fontWeight="bold">東海</text>
 
       {/* 甲信越・北陸 */}
       <path
@@ -48,8 +42,6 @@ const JapanMapDots = () => {
         id="map-koshinetsu-hokuriku"
       />
 
-      {/* 地域ラベル: 甲信越・北陸 */}
-      <text x="240" y="330" fill="rgba(255,255,255,0.8)" fontSize="10" fontWeight="bold">甲信越・北陸</text>
 
       {/* 関西 */}
       <path
@@ -58,8 +50,6 @@ const JapanMapDots = () => {
         id="map-kansai"
       />
 
-      {/* 地域ラベル: 関西 */}
-      <text x="185" y="420" fill="rgba(255,255,255,0.8)" fontSize="12" fontWeight="bold">関西</text>
 
       {/* 中国 */}
       <path
@@ -68,8 +58,6 @@ const JapanMapDots = () => {
         id="map-china"
       />
 
-      {/* 地域ラベル: 中国 */}
-      <text x="115" y="400" fill="rgba(255,255,255,0.8)" fontSize="12" fontWeight="bold">中国</text>
 
       {/* 四国 */}
       <path
@@ -78,8 +66,6 @@ const JapanMapDots = () => {
         id="map-shikoku"
       />
 
-      {/* 地域ラベル: 四国 */}
-      <text x="135" y="440" fill="rgba(255,255,255,0.8)" fontSize="12" fontWeight="bold">四国</text>
 
       {/* 九州・沖縄 */}
       <path
@@ -88,8 +74,6 @@ const JapanMapDots = () => {
         id="map-kyushu"
       />
 
-      {/* 地域ラベル: 九州・沖縄 */}
-      <text x="35" y="480" fill="rgba(255,255,255,0.8)" fontSize="10" fontWeight="bold">九州・沖縄</text>
     </svg>
   );
 };

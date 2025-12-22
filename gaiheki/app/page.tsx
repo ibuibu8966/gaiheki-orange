@@ -3,6 +3,7 @@ import AboutServiceSection from "./components/AboutServiceSection";
 import FeaturesSection from "./components/FeaturesSection";
 import DiagnosisForm from "./components/DiagnosisForm";
 import ServiceAreasSection from "./components/ServiceAreasSection";
+import CaseStudySection from "./components/CaseStudySection";
 import HowToUseSection from "./components/HowToUseSection";
 import FAQSection from "./components/FAQSection";
 import CTASection from "./components/CTASection";
@@ -17,6 +18,7 @@ export default function Home() {
       <AboutServiceSection />
       <FeaturesSection />
       <ServiceAreasSection />
+      <CaseStudySection />
       <HowToUseSection />
       <FAQSection />
       <CTASection />
