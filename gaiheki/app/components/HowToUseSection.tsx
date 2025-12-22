@@ -46,7 +46,7 @@ const HowToUseSection = () => {
     {
       number: "3",
       title: "ご要望に沿った施工店を\nご紹介いたします",
-      description: "\"外壁塗装の窓口\"の厳しい審査をクリアした優良施工店のうちご要望に沿った施工店をご紹介し、お見積りを取得することができます。",
+      description: "\"外壁塗装パートナーズ\"の厳しい審査をクリアした優良施工店のうちご要望に沿った施工店をご紹介し、お見積りを取得することができます。",
       icon: (
         <svg className="w-14 h-14" viewBox="0 0 64 64" fill="none">
           {/* 円形背景 */}
@@ -77,7 +77,7 @@ const HowToUseSection = () => {
               ご相談の<span className="text-[#f16f21]">流れ</span>
             </h2>
             <p className="hidden md:block text-gray-500 text-sm border-l border-gray-300 pl-6">
-              外壁塗装の窓口のご相談の流れをご説明します
+              外壁塗装パートナーズのご相談の流れをご説明します
             </p>
           </div>
         </div>

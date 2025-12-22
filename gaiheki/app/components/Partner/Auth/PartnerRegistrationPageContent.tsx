@@ -48,7 +48,7 @@ const PartnerRegistrationPageContent = () => {
             <h1 className="text-3xl font-bold text-gray-800">加盟店登録フォーム</h1>
           </div>
           <p className="text-gray-600 mb-2">
-            「外壁塗装の窓口」への掲載をご希望される施工会社様は、以下のフォームにご入力ください。
+            「外壁塗装パートナーズ」への掲載をご希望される施工会社様は、以下のフォームにご入力ください。
           </p>
           <p className="text-gray-600">
             ご入力いただいた内容を確認の上、3営業日以内に担当者よりご連絡させていただきます。

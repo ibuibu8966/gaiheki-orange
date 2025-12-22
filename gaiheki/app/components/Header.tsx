@@ -50,9 +50,9 @@ const Header = () => {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
               {/* 画像ロゴがある場合はこちらを使用 */}
-              {/* <Image src="/logo.png" alt="外壁塗装の窓口" width={180} height={50} /> */}
+              {/* <Image src="/logo.png" alt="外壁塗装パートナーズ" width={180} height={50} /> */}
               {/* テキストロゴ（画像がない場合のフォールバック） */}
-              <h1 className="font-serif text-xl font-black text-[#f16f21] cursor-pointer tracking-wide hover:opacity-80 transition-opacity duration-300">外壁塗装の窓口</h1>
+              <h1 className="font-serif text-xl font-black text-[#f16f21] cursor-pointer tracking-wide hover:opacity-80 transition-opacity duration-300">外壁塗装パートナーズ</h1>
             </Link>
           </div>
 

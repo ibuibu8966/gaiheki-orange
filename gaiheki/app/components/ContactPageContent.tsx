@@ -99,7 +99,7 @@ const ContactPageContent = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-800 mb-2">お電話でのお問い合わせ</h3>
-                  <p className="text-2xl font-bold text-[#f16f21] mb-2">0120-000-000</p>
+                  <a href="tel:0120-945-990" className="text-2xl font-bold text-[#f16f21] hover:text-[#e05a10] mb-2 block">0120-945-990</a>
                   <p className="text-sm text-gray-600">受付時間: 9:00-18:00（土日祝除く）</p>
                 </div>
               </div>
@@ -114,7 +114,7 @@ const ContactPageContent = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-800 mb-2">メールでのお問い合わせ</h3>
-                  <p className="text-lg text-gray-700">info@gaiheki-madoguchi.com</p>
+                  <p className="text-lg text-gray-700">info@gaiheki-partners.com</p>
                 </div>
               </div>
 
@@ -127,7 +127,9 @@ const ContactPageContent = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-800 mb-2">所在地</h3>
-                  <p className="text-gray-700">東京都渋谷区○○○○</p>
+                  <p className="text-gray-700">〒113-0023</p>
+                  <p className="text-gray-700">東京都文京区向丘2-18-13-2F</p>
+                  <p className="text-gray-700 mt-1 text-sm">オムコン株式会社</p>
                 </div>
               </div>
 

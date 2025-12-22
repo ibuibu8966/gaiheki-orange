@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ prefectur
   const prefectureName = prefectureNames[prefecture] || prefecture;
 
   return {
-    title: `${prefectureName}の外壁塗装業者一覧 - 外壁塗装の窓口`,
+    title: `${prefectureName}の外壁塗装業者一覧 - 外壁塗装パートナーズ`,
     description: `${prefectureName}で外壁塗装に対応している信頼できる業者をご紹介。評価順で比較できます。`,
   };
 }

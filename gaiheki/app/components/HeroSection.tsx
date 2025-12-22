@@ -59,7 +59,7 @@ const HeroSection = () => {
             <div className="mb-6 md:mb-8">
               <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                 比較で納得、直営で安心。<br/>
-                すべてが揃う外壁塗装の窓口。
+                すべてが揃う外壁塗装パートナーズ。
               </p>
             </div>
 

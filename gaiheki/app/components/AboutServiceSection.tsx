@@ -10,7 +10,7 @@ const AboutServiceSection = () => {
 
   return (
     <>
-      {/* セクション1: 外壁塗装の窓口とは - オレンジ背景 */}
+      {/* セクション1: 外壁塗装パートナーズとは - オレンジ背景 */}
       <section className="relative bg-gradient-to-b from-[#f5a623] to-[#e8941e] py-16 md:py-24 px-4 overflow-hidden">
         {/* 背景デコレーション - 波線 */}
         <div className="absolute inset-0 overflow-hidden">
@@ -39,14 +39,14 @@ const AboutServiceSection = () => {
               <span className="w-2.5 h-2.5 bg-[#e74c3c] rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 drop-shadow-lg">
-              外壁塗装の窓口とは
+              外壁塗装パートナーズとは
             </h2>
             <p className="text-white text-sm md:text-base leading-relaxed max-w-3xl mx-auto drop-shadow">
               全国の優良リフォーム会社、塗装専門会社とのネットワークを持ち、<br className="hidden md:block" />
               独立した第三者機関の立場からお客様のご要望やご希望に沿った会社をご案内しています。
             </p>
             <p className="text-white text-sm md:text-base leading-relaxed max-w-3xl mx-auto mt-2 drop-shadow">
-              また、ご紹介にとどまらず直営店舗も全国に構えており、外壁塗装の窓口が責任をもって施工を承ることも可能です。
+              また、ご紹介にとどまらず直営店舗も全国に構えており、外壁塗装パートナーズが責任をもって施工を承ることも可能です。
             </p>
           </div>
 
@@ -101,7 +101,7 @@ const AboutServiceSection = () => {
               </svg>
             </div>
 
-            {/* 中央: 外壁塗装の窓口 */}
+            {/* 中央: 外壁塗装パートナーズ */}
             <div className="bg-white rounded-3xl p-6 shadow-2xl w-full max-w-[340px] border-4 border-white relative">
               {/* PCイラスト */}
               <div className="flex justify-center mb-4">
@@ -120,7 +120,7 @@ const AboutServiceSection = () => {
               </div>
               <div className="text-center mb-4">
                 <p className="text-[#dc2626] text-xs mb-1 font-medium">業界最大級の<span className="text-[#f16f21] font-bold">外壁塗装専門サイト</span></p>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-800 border-b-2 border-[#f16f21] inline-block pb-1">外壁塗装の窓口</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-800 border-b-2 border-[#f16f21] inline-block pb-1">外壁塗装パートナーズ</h3>
               </div>
               <div className="space-y-2.5">
                 <div className="flex items-center gap-2 bg-gradient-to-r from-[#f16f21] to-[#f59e0b] px-3 py-2 rounded-lg shadow">

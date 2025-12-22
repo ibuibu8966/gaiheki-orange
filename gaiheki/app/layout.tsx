@@ -18,8 +18,8 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "外壁塗装の窓口",
-  description: "外壁塗装の窓口 - 信頼できる施工店をご紹介",
+  title: "外壁塗装パートナーズ",
+  description: "外壁塗装パートナーズ - 信頼できる施工店をご紹介",
 };
 
 export const dynamic = 'force-dynamic';

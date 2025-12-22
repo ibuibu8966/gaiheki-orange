@@ -303,9 +303,9 @@ const DiagnosisForm = () => {
               {/* 利用規約 */}
               <div className="text-center pt-2">
                 <p className="text-sm text-gray-600">
-                  <a href="#" className="text-[#f16f21] underline hover:no-underline">利用規約</a>
+                  <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-[#f16f21] underline hover:no-underline">利用規約</a>
                   と
-                  <a href="#" className="text-[#f16f21] underline hover:no-underline">プライバシーポリシー</a>
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-[#f16f21] underline hover:no-underline">プライバシーポリシー</a>
                   に同意して、
                 </p>
               </div>

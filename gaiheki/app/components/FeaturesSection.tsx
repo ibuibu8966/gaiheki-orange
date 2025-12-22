@@ -20,7 +20,7 @@ const FeaturesSection = () => {
             <span className="w-2 h-2 bg-[#f16f21] rounded-full"></span>
           </div>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800">
-            外壁塗装の窓口の特徴
+            外壁塗装パートナーズの特徴
           </h2>
         </div>
 

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     if (partner?.partner_details) {
       const details = partner.partner_details;
       return {
-        title: `${details.company_name} - 外壁塗装の窓口`,
+        title: `${details.company_name} - 外壁塗装パートナーズ`,
         description: details.appeal_text?.substring(0, 150) || details.business_description?.substring(0, 150),
       };
     }
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   }
 
   return {
-    title: "加盟店詳細 - 外壁塗装の窓口",
+    title: "加盟店詳細 - 外壁塗装パートナーズ",
     description: "信頼できる外壁塗装業者の詳細情報をご覧ください。",
   };
 }
