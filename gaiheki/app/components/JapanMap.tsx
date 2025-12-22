@@ -67,38 +67,27 @@ const regions: Region[] = [
   }
 ];
 
+// 地図上のラベル位置
+const labelPositions: { [key: string]: { x: number; y: number } } = {
+  hokkaido: { x: 400, y: 95 },
+  tohoku: { x: 380, y: 230 },
+  kanto: { x: 370, y: 380 },
+  "koshinetsu-hokuriku": { x: 295, y: 310 },
+  tokai: { x: 270, y: 405 },
+  kansai: { x: 220, y: 400 },
+  chugoku: { x: 150, y: 380 },
+  shikoku: { x: 165, y: 425 },
+  kyushu: { x: 85, y: 440 },
+};
+
 const JapanMap = () => {
   const [hoveredRegion, setHoveredRegion] = useState<string | null>(null);
-  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setTooltipPos({ x: e.clientX, y: e.clientY });
-  };
-
-  const getHoveredRegionName = () => {
-    const region = regions.find(r => r.id === hoveredRegion);
-    return region?.name || "";
-  };
 
   return (
     <div className="relative w-full max-w-2xl mx-auto">
-      {/* ツールチップ */}
-      {hoveredRegion && (
-        <div
-          className="fixed z-50 bg-gray-800 text-white px-3 py-1 rounded text-sm pointer-events-none"
-          style={{
-            left: tooltipPos.x + 10,
-            top: tooltipPos.y - 30,
-          }}
-        >
-          {getHoveredRegionName()}
-        </div>
-      )}
-
       <svg
         viewBox="0 0 470 540"
         className="w-full h-auto"
-        onMouseMove={handleMouseMove}
         role="img"
         aria-label="日本地図 - 地域を選択してください"
       >
@@ -115,26 +104,34 @@ const JapanMap = () => {
             />
           </Link>
         ))}
-      </svg>
 
-      {/* 地域ラベル */}
-      <div className="mt-6 flex flex-wrap justify-center gap-2">
-        {regions.map((region) => (
-          <Link
-            key={region.id}
-            href={region.link}
-            className={`px-3 py-1 rounded text-sm transition-colors ${
-              hoveredRegion === region.id
-                ? "bg-[#f16f21] text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-            onMouseEnter={() => setHoveredRegion(region.id)}
-            onMouseLeave={() => setHoveredRegion(null)}
-          >
-            {region.name}
-          </Link>
-        ))}
-      </div>
+        {/* 地図上のラベル */}
+        {regions.map((region) => {
+          const pos = labelPositions[region.id];
+          if (!pos) return null;
+          return (
+            <Link key={`label-${region.id}`} href={region.link}>
+              <g
+                onMouseEnter={() => setHoveredRegion(region.id)}
+                onMouseLeave={() => setHoveredRegion(null)}
+                className="cursor-pointer"
+              >
+                <text
+                  x={pos.x}
+                  y={pos.y}
+                  textAnchor="middle"
+                  className={`text-[11px] font-bold transition-colors duration-200 ${
+                    hoveredRegion === region.id ? "fill-[#f16f21]" : "fill-gray-700"
+                  }`}
+                  style={{ pointerEvents: "none" }}
+                >
+                  {region.name}
+                </text>
+              </g>
+            </Link>
+          );
+        })}
+      </svg>
     </div>
   );
 };
