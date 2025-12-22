@@ -6,6 +6,15 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   reactStrictMode: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'gaiheki-madoguchi.com',
+        pathname: '/images/**',
+      },
+    ],
+  },
   experimental: {
     // Disable static generation for error pages to avoid Html import issues
     optimizePackageImports: ['react', 'react-dom'],

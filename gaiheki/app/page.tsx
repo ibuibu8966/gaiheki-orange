@@ -13,9 +13,9 @@ export default function Home() {
   return (
     <div>
       <HeroSection />
+      <DiagnosisForm />
       <AboutServiceSection />
       <FeaturesSection />
-      <DiagnosisForm />
       <ServiceAreasSection />
       <HowToUseSection />
       <FAQSection />
