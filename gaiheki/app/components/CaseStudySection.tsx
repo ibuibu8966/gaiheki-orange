@@ -1,47 +1,48 @@
 "use client";
 
+import Image from "next/image";
+
 const CaseStudySection = () => {
   const caseStudies = [
     {
-      image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=300&fit=crop",
-      title: "外壁の塗装",
-      location: "大阪府",
-      price: "1,000,000",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=300&fit=crop",
-      title: "外壁と屋根の塗装",
-      location: "滋賀県",
-      price: "1,240,000",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
-      title: "外壁の張り替え",
-      location: "熊本県",
-      price: "5,000,000",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop",
-      title: "屋根のカバー工法",
-      location: "新潟県",
-      price: "1,480,000",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop",
-      title: "大規模修繕（外壁修繕・屋上防水）",
+      beforeImage: "/images/case-before-1.jpg",
+      afterImage: "/images/case-after-1.jpg",
+      title: "マンション外壁塗装",
       location: "東京都",
-      price: "4,300,000",
+      description: "築20年のマンションの大規模修繕",
     },
     {
-      image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&h=300&fit=crop",
-      title: "屋根の塗装",
-      location: "宮城県",
-      price: "660,000",
+      beforeImage: "/images/case-before-2.jpg",
+      afterImage: "/images/case-after-2.jpg",
+      title: "戸建て外壁塗装",
+      location: "神奈川県",
+      description: "白からブルーへのカラーチェンジ",
+    },
+    {
+      beforeImage: "/images/case-before-3.jpg",
+      afterImage: "/images/case-after-3.jpg",
+      title: "戸建て外壁塗装",
+      location: "埼玉県",
+      description: "茶色から爽やかなブルーグリーンへ",
+    },
+    {
+      beforeImage: "/images/case-before-4.jpg",
+      afterImage: "/images/case-after-4.jpg",
+      title: "アパート外壁塗装",
+      location: "千葉県",
+      description: "経年劣化した外壁のリフレッシュ",
+    },
+    {
+      beforeImage: "/images/case-before-5.jpg",
+      afterImage: "/images/case-after-5.jpg",
+      title: "屋根遮熱塗装",
+      location: "大阪府",
+      description: "遮熱塗料で表面温度35℃低下",
     },
   ];
 
   return (
-    <section className="py-16 md:py-24 px-4 bg-white">
+    <section className="py-16 md:py-24 px-4 bg-gradient-to-b from-white to-[#fff8f0]">
       <div className="max-w-6xl mx-auto">
         {/* ヘッダー */}
         <div className="text-center mb-12">
@@ -56,37 +57,75 @@ const CaseStudySection = () => {
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
             施工実績
           </h2>
+          <p className="text-gray-600 mt-2">
+            ビフォーアフターで見る、私たちの施工品質
+          </p>
         </div>
 
         {/* 施工実績グリッド */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {caseStudies.map((study, index) => (
-            <div key={index} className="group cursor-pointer">
-              {/* 画像 */}
-              <div className="relative overflow-hidden mb-3">
-                <img
-                  src={study.image}
-                  alt={study.title}
-                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                />
+            <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              {/* ビフォーアフター画像 */}
+              <div className="relative">
+                <div className="grid grid-cols-2">
+                  {/* Before */}
+                  <div className="relative">
+                    <Image
+                      src={study.beforeImage}
+                      alt={`${study.title} - 施工前`}
+                      width={300}
+                      height={200}
+                      className="w-full h-40 object-cover"
+                    />
+                    <span className="absolute top-2 left-2 bg-gray-800/80 text-white text-xs font-bold px-2 py-1 rounded">
+                      Before
+                    </span>
+                  </div>
+                  {/* After */}
+                  <div className="relative">
+                    <Image
+                      src={study.afterImage}
+                      alt={`${study.title} - 施工後`}
+                      width={300}
+                      height={200}
+                      className="w-full h-40 object-cover"
+                    />
+                    <span className="absolute top-2 right-2 bg-[#f16f21] text-white text-xs font-bold px-2 py-1 rounded">
+                      After
+                    </span>
+                  </div>
+                </div>
+                {/* 矢印アイコン */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg">
+                  <svg className="w-5 h-5 text-[#f16f21]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
               </div>
 
               {/* 情報 */}
-              <div>
-                <h3 className="font-bold text-gray-800 mb-1">{study.title}</h3>
-                <p className="text-sm text-gray-500 mb-2">{study.location}</p>
-                <div className="flex items-center gap-2">
-                  <span className="bg-[#f16f21] text-white text-xs px-2 py-1 font-bold">
-                    工事金額
+              <div className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="bg-[#fff8f0] text-[#f16f21] text-xs font-bold px-2 py-1 rounded">
+                    {study.location}
                   </span>
-                  <span className="text-xl font-bold text-gray-800">
-                    {study.price}
-                  </span>
-                  <span className="text-sm text-gray-600">円</span>
                 </div>
+                <h3 className="font-bold text-gray-800 text-lg mb-1">{study.title}</h3>
+                <p className="text-sm text-gray-600">{study.description}</p>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* もっと見るボタン */}
+        <div className="text-center mt-10">
+          <button className="inline-flex items-center justify-center bg-white border-2 border-[#f16f21] text-[#f16f21] font-bold py-3 px-8 rounded-lg hover:bg-[#f16f21] hover:text-white transition-all duration-300">
+            施工実績をもっと見る
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>

@@ -4,13 +4,13 @@ import Image from "next/image";
 
 const JapanMapWithStats = () => {
   return (
-    <div className="relative w-full max-w-md lg:max-w-lg xl:max-w-xl bg-white rounded-lg">
+    <div className="relative w-full max-w-md lg:max-w-lg xl:max-w-xl bg-white rounded-lg overflow-hidden">
       <Image
-        src="/images/hero-bg-sp_no-text_v2.png"
+        src="/images/japan-map-dots.png"
         alt="日本地図 - 地域別加盟店・直営店数"
         width={500}
         height={500}
-        className="w-full h-auto"
+        className="w-full h-auto -mt-[2px]"
         priority
       />
     </div>

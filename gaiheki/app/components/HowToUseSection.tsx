@@ -2,31 +2,65 @@ const HowToUseSection = () => {
   const steps = [
     {
       number: "1",
-      title: "建物状況を入力",
-      description: "お住まいの状況や外壁の気になるポイントを簡単なフォームに入力。たった60秒で完了します。",
+      title: "お建物のご状況を\nお知らせください",
+      description: "ご希望の施工箇所や現在お困りのご状況を、本ページ内にある「外壁塗装の相場を診断」のフォームよりご入力ください。およそ10秒で簡単に入力できます。",
       icon: (
-        <svg className="w-8 h-8 text-[#f16f21]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        <svg className="w-14 h-14" viewBox="0 0 64 64" fill="none">
+          {/* モニター外枠 */}
+          <rect x="8" y="10" width="48" height="32" rx="2" stroke="#d4a574" strokeWidth="2" fill="white" />
+          {/* モニター画面 */}
+          <rect x="12" y="14" width="40" height="24" fill="#fef3c7" />
+          {/* スタンド */}
+          <path d="M28 42 L28 48 L36 48 L36 42" stroke="#d4a574" strokeWidth="2" fill="none" />
+          <rect x="24" y="48" width="16" height="3" fill="#d4a574" />
+          {/* 画面内のライン */}
+          <rect x="16" y="20" width="16" height="2" fill="#f16f21" opacity="0.6" />
+          <rect x="16" y="26" width="24" height="2" fill="#d4a574" opacity="0.5" />
+          <rect x="16" y="32" width="20" height="2" fill="#d4a574" opacity="0.5" />
+          {/* カーソル矢印 */}
+          <path d="M40 22 L48 30 L44 30 L44 36 L40 36 L40 30 L36 30 Z" fill="#f16f21" />
         </svg>
       )
     },
     {
       number: "2",
-      title: "アドバイザーがご相談",
-      description: "経験豊富な専門スタッフがお電話にてお客様のご要望を丁寧にお伺いし、最適なプランをご提案。",
+      title: "専門の外壁アドバイザーが\nお電話にてご相談を承ります",
+      description: "ご入力いただいた内容を元に、お客様のご状況を詳しくヒアリングさせていただきます。不安要素やお悩み、ご質問等なんでもお伺いいたします。",
       icon: (
-        <svg className="w-8 h-8 text-[#f16f21]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+        <svg className="w-14 h-14" viewBox="0 0 64 64" fill="none">
+          {/* 円形背景 */}
+          <circle cx="32" cy="32" r="26" fill="#fef3c7" />
+          {/* ヘッドセットバンド */}
+          <path d="M16 32 C16 22 23 14 32 14 C41 14 48 22 48 32" stroke="#d4a574" strokeWidth="3" fill="none" />
+          {/* 左イヤーパッド */}
+          <rect x="12" y="28" width="8" height="14" rx="2" fill="#f16f21" />
+          {/* 右イヤーパッド */}
+          <rect x="44" y="28" width="8" height="14" rx="2" fill="#f16f21" />
+          {/* マイクアーム */}
+          <path d="M20 42 L20 46 C20 50 26 54 32 54" stroke="#d4a574" strokeWidth="2" fill="none" />
+          {/* マイク */}
+          <ellipse cx="34" cy="54" rx="4" ry="3" fill="#d4a574" />
         </svg>
       )
     },
     {
       number: "3",
-      title: "施工店紹介・お見積り",
-      description: "お客様のご希望に合わせて、厳選された優良業者の中から最適な施工店を最大3社ご紹介いたします。",
+      title: "ご要望に沿った施工店を\nご紹介いたします",
+      description: "\"外壁塗装の窓口\"の厳しい審査をクリアした優良施工店のうちご要望に沿った施工店をご紹介し、お見積りを取得することができます。",
       icon: (
-        <svg className="w-8 h-8 text-[#f16f21]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+        <svg className="w-14 h-14" viewBox="0 0 64 64" fill="none">
+          {/* 円形背景 */}
+          <circle cx="32" cy="32" r="26" fill="#fef3c7" />
+          {/* ドキュメント */}
+          <rect x="18" y="12" width="28" height="36" rx="2" fill="white" stroke="#d4a574" strokeWidth="2" />
+          {/* ドキュメントライン */}
+          <rect x="22" y="18" width="16" height="2" fill="#f16f21" />
+          <rect x="22" y="24" width="20" height="2" fill="#d4a574" opacity="0.5" />
+          <rect x="22" y="30" width="18" height="2" fill="#d4a574" opacity="0.5" />
+          <rect x="22" y="36" width="20" height="2" fill="#d4a574" opacity="0.5" />
+          {/* チェックマーク */}
+          <circle cx="44" cy="42" r="10" fill="#f16f21" />
+          <path d="M39 42 L42 45 L49 38" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       )
     }
@@ -36,62 +70,76 @@ const HowToUseSection = () => {
     <section className="bg-white py-12 md:py-20 lg:py-24 px-4">
       <div className="max-w-6xl mx-auto">
         {/* タイトル */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-3">
-            ご相談の<span className="text-[#f16f21]">流れ</span>
-          </h2>
-          <p className="text-gray-600">
-            簡単3ステップで、最適な業者をご紹介
-          </p>
+        <div className="flex items-center gap-4 mb-12 md:mb-16">
+          <div className="w-1 h-12 bg-[#f16f21]"></div>
+          <div className="flex items-center gap-6">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800">
+              ご相談の<span className="text-[#f16f21]">流れ</span>
+            </h2>
+            <p className="hidden md:block text-gray-500 text-sm border-l border-gray-300 pl-6">
+              外壁塗装の窓口のご相談の流れをご説明します
+            </p>
+          </div>
         </div>
 
         {/* ステップ */}
         <div className="relative">
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+          {/* ステップ番号と矢印のライン - デスクトップ */}
+          <div className="hidden md:flex justify-between items-center mb-6 px-[calc(16.666%-24px)]">
             {steps.map((step, index) => (
-              <div key={index} className="flex flex-col items-center animate-fadeIn" style={{animationDelay: `${index * 0.1}s`}}>
-                {/* ステップ番号 */}
-                <div className="relative mb-6">
-                  <div className="w-20 h-20 md:w-24 md:h-24 border-4 border-[#f16f21] rounded-full flex items-center justify-center bg-white shadow-lg relative z-10">
-                    <span className="text-3xl md:text-4xl font-bold text-[#f16f21]">{step.number}</span>
-                  </div>
+              <div key={index} className="flex items-center">
+                {/* 番号 */}
+                <div className="w-14 h-14 border-[3px] border-[#f16f21] rounded-full flex items-center justify-center bg-white relative z-10">
+                  <span className="text-2xl font-bold text-[#f16f21]">{step.number}</span>
+                </div>
 
-                  {/* 矢印（最後のステップ以外） - デスクトップのみ表示 */}
-                  {index < steps.length - 1 && (
-                    <div className="hidden md:block absolute top-12 left-[calc(50%+3rem)] w-[calc(100vw/3-6rem)] max-w-[200px] z-0">
-                      <svg className="w-full h-6" viewBox="0 0 100 20" preserveAspectRatio="none">
-                        <defs>
-                          <marker id={`arrowhead-${index}`} markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#f16f21" />
-                          </marker>
-                        </defs>
-                        <line
-                          x1="0"
-                          y1="10"
-                          x2="100"
-                          y2="10"
-                          stroke="#f16f21"
-                          strokeWidth="3"
-                          strokeDasharray="5,5"
-                          markerEnd={`url(#arrowhead-${index})`}
-                        />
-                      </svg>
-                    </div>
-                  )}
+                {/* 矢印（最後のステップ以外） */}
+                {index < steps.length - 1 && (
+                  <div className="flex items-center w-[calc((100vw-200px)/3)] max-w-[280px] ml-2">
+                    <svg className="w-full h-4" viewBox="0 0 200 16" preserveAspectRatio="none">
+                      <line
+                        x1="0"
+                        y1="8"
+                        x2="180"
+                        y2="8"
+                        stroke="#f16f21"
+                        strokeWidth="2"
+                        strokeDasharray="8,6"
+                      />
+                      <polygon points="180,3 195,8 180,13" fill="#f16f21" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* カード */}
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+            {steps.map((step, index) => (
+              <div key={index} className="flex flex-col">
+                {/* モバイル用番号 */}
+                <div className="md:hidden flex items-center mb-4">
+                  <div className="w-12 h-12 border-[3px] border-[#f16f21] rounded-full flex items-center justify-center bg-white mr-4">
+                    <span className="text-xl font-bold text-[#f16f21]">{step.number}</span>
+                  </div>
+                  <h3 className="text-base font-bold text-gray-800 whitespace-pre-line">
+                    {step.title}
+                  </h3>
                 </div>
 
                 {/* コンテンツカード */}
-                <div className="w-full bg-white border-2 border-[#f16f21]/20 rounded-2xl p-6 md:p-8 shadow-md hover:shadow-xl hover:border-[#f16f21]/40 transition-all duration-300">
+                <div className="w-full bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex-1 flex flex-col">
                   {/* アイコン */}
-                  <div className="w-14 h-14 mx-auto mb-4 bg-[#f16f21]/10 rounded-full flex items-center justify-center">
+                  <div className="flex justify-center mb-5">
                     {step.icon}
                   </div>
 
-                  <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3 text-center">
+                  <h3 className="hidden md:block text-base font-bold text-gray-800 mb-4 text-center whitespace-pre-line leading-relaxed">
                     {step.title}
                   </h3>
 
-                  <p className="text-sm text-gray-600 leading-relaxed text-center">
+                  <p className="text-sm text-gray-600 leading-relaxed flex-1">
                     {step.description}
                   </p>
                 </div>

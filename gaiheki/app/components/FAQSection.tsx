@@ -7,7 +7,7 @@ const FAQSection = () => {
 
   const faqs = [
     {
-      question: "外壁塗装の窓口って何？",
+      question: "外壁塗装の窓口ってなに？",
       answer: "外壁塗装の窓口は、全国の優良な外壁塗装業者と施工をお考えのお客様をマッチングするサービスです。厳しい審査基準をクリアした業者のみをご紹介し、お客様に最適な業者選びをサポートいたします。"
     },
     {
@@ -15,7 +15,7 @@ const FAQSection = () => {
       answer: "ご相談、お見積りは完全無料です。外壁塗装の窓口へのご相談から業者のご紹介、お見積りまで一切費用はかかりません。安心してご利用ください。"
     },
     {
-      question: "見積もりを依頼したら必ず契約しないといけないの？",
+      question: "見積もり依頼したら必ず契約しないといけないの？",
       answer: "いいえ、見積もりをご依頼いただいても契約の義務は一切ございません。複数社からお見積りを取って比較検討していただき、ご納得いただいた業者とご契約ください。"
     },
     {
@@ -33,47 +33,47 @@ const FAQSection = () => {
   };
 
   return (
-    <section className="relative bg-white py-24 px-4">
-      <div className="max-w-3xl mx-auto relative z-10">
+    <section className="bg-[#faf6f1] py-16 md:py-24 px-4">
+      <div className="max-w-4xl mx-auto">
         {/* タイトル */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3 animate-fadeIn">
+        <div className="flex items-center gap-4 mb-10 md:mb-12">
+          <div className="w-1.5 h-10 bg-[#f16f21]"></div>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
             よくある質問
           </h2>
+          <p className="hidden md:block text-[#d4a574] text-sm ml-4">
+            外壁塗装の窓口のよくある質問についてお答えします
+          </p>
         </div>
 
         {/* FAQ リスト */}
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 animate-fadeIn" style={{animationDelay: `${index * 0.05}s`}}>
+            <div
+              key={index}
+              className="bg-white rounded-lg overflow-hidden border-l-4 border-[#f16f21]"
+            >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-5 text-left hover:bg-slate-50 transition-all duration-300 flex items-center justify-between"
+                className="w-full px-6 py-5 text-left flex items-center justify-between gap-4"
               >
-                <div className="flex items-center gap-4">
-                  <span className="bg-[#f16f21] text-white text-sm font-bold px-3 py-1.5 rounded-lg">
+                <div className="flex items-center gap-5">
+                  <span className="bg-[#f16f21] text-white text-sm font-bold w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
                     Q
                   </span>
-                  <span className="font-bold text-slate-900">{faq.question}</span>
+                  <span className="font-medium text-gray-800">{faq.question}</span>
                 </div>
-                <svg
-                  className={`w-5 h-5 text-slate-400 transition-transform duration-300 flex-shrink-0 ${
-                    openIndex === index ? "transform rotate-180" : ""
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
+                <span className="text-gray-300 text-2xl flex-shrink-0 font-light">
+                  {openIndex === index ? "−" : "+"}
+                </span>
               </button>
               {openIndex === index && (
-                <div className="px-6 py-5 bg-slate-50 border-t border-slate-200 animate-fadeIn">
-                  <div className="flex gap-4">
-                    <span className="bg-slate-700 text-white text-sm font-bold px-3 py-1.5 rounded-lg flex-shrink-0">
+                <div className="px-6 pb-5">
+                  <div className="flex gap-5 ml-0">
+                    <span className="bg-gray-500 text-white text-sm font-bold w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
                       A
                     </span>
-                    <p className="text-slate-700 leading-relaxed">{faq.answer}</p>
+                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
                   </div>
                 </div>
               )}

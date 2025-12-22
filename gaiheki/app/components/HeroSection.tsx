@@ -19,8 +19,8 @@ const HeroSection = () => {
           <div className="flex-1 w-full lg:w-1/2">
             {/* メインキャッチコピー */}
             <div className="mb-6 md:mb-8">
-              <h1 className="font-serif text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-4">
-                <span className="text-[#f16f21]">信頼</span>と<span className="text-[#f16f21]">安心</span>の<br/>全国ネットワーク
+              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4">
+                <span className="text-[#f16f21]">信頼</span><span className="text-[#4a4a4a]">と</span><span className="text-[#f16f21]">安心</span><span className="text-[#4a4a4a]">の</span><br/><span className="text-[#4a4a4a]">全国ネットワーク</span>
               </h1>
             </div>
 
@@ -67,10 +67,10 @@ const HeroSection = () => {
             <div className="flex flex-col gap-3 max-w-xs">
               <a
                 href="tel:0120-000-000"
-                className="inline-flex items-center justify-center bg-white border-2 border-[#f16f21] text-[#f16f21] font-bold py-3 px-6 rounded-lg text-base transition-all duration-300 hover:bg-[#fff5f0] shadow-md"
+                className="inline-flex items-center justify-center bg-[#fef3c7] border-2 border-[#f59e0b] text-[#92400e] font-bold py-3 px-6 rounded-lg text-base transition-all duration-300 hover:bg-[#fde68a] shadow-md"
               >
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <svg className="w-5 h-5 mr-2 text-[#f59e0b]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 ご相談・お問い合わせ
               </a>
