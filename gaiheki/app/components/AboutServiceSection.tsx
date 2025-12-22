@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const AboutServiceSection = () => {
   const scrollToDiagnosisForm = () => {
     const element = document.getElementById('diagnosis-form');
@@ -53,29 +55,27 @@ const AboutServiceSection = () => {
           {/* フローチャート */}
           <div className="relative flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-2">
             {/* 左: お客様 */}
-            <div className="relative bg-white/25 backdrop-blur-sm rounded-3xl p-6 w-full max-w-[280px] shadow-lg border border-white/30">
+            <div className="relative w-full max-w-[280px]">
               {/* 吹き出し */}
-              <div className="absolute -top-4 left-4 bg-[#fffbeb] text-[#92400e] text-xs px-3 py-1.5 rounded-full shadow-md font-medium border border-[#fde68a]">
+              <div className="absolute -top-6 -left-2 z-10 bg-[#fffbeb] text-[#92400e] text-xs px-3 py-1.5 rounded-full shadow-md font-medium border border-[#fde68a] whitespace-nowrap">
                 塗装の相談をしたい
               </div>
-              <div className="absolute -top-4 right-4 bg-[#fffbeb] text-[#92400e] text-xs px-3 py-1.5 rounded-full shadow-md font-medium border border-[#fde68a]">
+              <div className="absolute -top-6 -right-2 z-10 bg-[#fffbeb] text-[#92400e] text-xs px-3 py-1.5 rounded-full shadow-md font-medium border border-[#fde68a] whitespace-nowrap">
                 見積もりが欲しい
               </div>
-              {/* イラスト - 3人の人物 */}
-              <div className="flex justify-center mb-3 pt-6">
-                <svg className="w-32 h-28" viewBox="0 0 140 100">
-                  {/* 左の人 */}
-                  <circle cx="30" cy="25" r="12" fill="#fbbf24"/>
-                  <ellipse cx="30" cy="65" rx="18" ry="28" fill="#f97316"/>
-                  {/* 中央の人 */}
-                  <circle cx="70" cy="20" r="14" fill="#fcd34d"/>
-                  <ellipse cx="70" cy="62" rx="20" ry="32" fill="#fb923c"/>
-                  {/* 右の人 */}
-                  <circle cx="110" cy="25" r="12" fill="#fbbf24"/>
-                  <ellipse cx="110" cy="65" rx="18" ry="28" fill="#f97316"/>
-                </svg>
+              {/* 画像カード */}
+              <div className="relative rounded-3xl overflow-hidden shadow-lg">
+                <Image
+                  src="/images/people-icon.jpg"
+                  alt="お客様"
+                  width={280}
+                  height={200}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="absolute bottom-0 left-0 right-0 py-4">
+                  <p className="text-gray-800 text-center font-bold text-lg">お客様</p>
+                </div>
               </div>
-              <p className="text-white text-center font-bold text-lg drop-shadow">お客様</p>
             </div>
 
             {/* 曲線矢印（左→中央） */}
@@ -103,21 +103,6 @@ const AboutServiceSection = () => {
 
             {/* 中央: 外壁塗装パートナーズ */}
             <div className="bg-white rounded-3xl p-6 shadow-2xl w-full max-w-[340px] border-4 border-white relative">
-              {/* PCイラスト */}
-              <div className="flex justify-center mb-4">
-                <svg className="w-28 h-20" viewBox="0 0 120 80">
-                  {/* モニター */}
-                  <rect x="15" y="5" width="90" height="55" rx="4" fill="#374151" stroke="#1f2937" strokeWidth="2"/>
-                  <rect x="20" y="10" width="80" height="45" fill="#60a5fa"/>
-                  {/* 画面内容 */}
-                  <rect x="25" y="15" width="30" height="4" fill="white" opacity="0.8"/>
-                  <rect x="25" y="22" width="50" height="3" fill="white" opacity="0.6"/>
-                  <rect x="25" y="28" width="40" height="3" fill="white" opacity="0.6"/>
-                  {/* スタンド */}
-                  <rect x="50" y="60" width="20" height="8" fill="#6b7280"/>
-                  <rect x="40" y="68" width="40" height="6" rx="2" fill="#4b5563"/>
-                </svg>
-              </div>
               <div className="text-center mb-4">
                 <p className="text-[#dc2626] text-xs mb-1 font-medium">業界最大級の<span className="text-[#f16f21] font-bold">外壁塗装専門サイト</span></p>
                 <h3 className="text-xl md:text-2xl font-bold text-gray-800 border-b-2 border-[#f16f21] inline-block pb-1">外壁塗装パートナーズ</h3>
@@ -177,37 +162,14 @@ const AboutServiceSection = () => {
             <div className="flex flex-col gap-4 w-full max-w-[280px]">
               {/* 優良施工店 */}
               <div className="bg-white rounded-3xl p-5 shadow-xl border-2 border-gray-100">
-                <div className="flex items-center justify-center gap-4 mb-2">
-                  {/* 家のイラスト */}
-                  <svg className="w-20 h-20" viewBox="0 0 80 80">
-                    {/* 屋根 */}
-                    <path d="M10 40 L40 15 L70 40" fill="#dc2626" stroke="#b91c1c" strokeWidth="2"/>
-                    {/* 壁 */}
-                    <rect x="15" y="40" width="50" height="35" fill="#fef3c7" stroke="#d97706" strokeWidth="1"/>
-                    {/* ドア */}
-                    <rect x="33" y="50" width="14" height="25" fill="#92400e" rx="1"/>
-                    <circle cx="44" cy="63" r="1.5" fill="#fbbf24"/>
-                    {/* 窓 */}
-                    <rect x="20" y="48" width="10" height="10" fill="#93c5fd" stroke="#60a5fa" strokeWidth="1"/>
-                    <line x1="25" y1="48" x2="25" y2="58" stroke="#60a5fa" strokeWidth="1"/>
-                    <line x1="20" y1="53" x2="30" y2="53" stroke="#60a5fa" strokeWidth="1"/>
-                    <rect x="50" y="48" width="10" height="10" fill="#93c5fd" stroke="#60a5fa" strokeWidth="1"/>
-                    <line x1="55" y1="48" x2="55" y2="58" stroke="#60a5fa" strokeWidth="1"/>
-                    <line x1="50" y1="53" x2="60" y2="53" stroke="#60a5fa" strokeWidth="1"/>
-                  </svg>
-                  {/* 2人の作業員 */}
-                  <div className="flex -space-x-2">
-                    <svg className="w-12 h-16" viewBox="0 0 50 70">
-                      <circle cx="25" cy="12" r="10" fill="#fcd34d"/>
-                      <ellipse cx="25" cy="45" rx="14" ry="22" fill="#3b82f6"/>
-                      <rect x="12" y="8" width="26" height="6" fill="#fbbf24" rx="2"/>
-                    </svg>
-                    <svg className="w-12 h-16" viewBox="0 0 50 70">
-                      <circle cx="25" cy="12" r="10" fill="#fcd34d"/>
-                      <ellipse cx="25" cy="45" rx="14" ry="22" fill="#22c55e"/>
-                      <rect x="12" y="8" width="26" height="6" fill="#fbbf24" rx="2"/>
-                    </svg>
-                  </div>
+                <div className="flex items-center justify-center mb-2">
+                  <Image
+                    src="/images/house-workers.jpg"
+                    alt="優良施工店"
+                    width={200}
+                    height={100}
+                    className="w-48 h-auto object-contain"
+                  />
                 </div>
                 <p className="text-gray-800 font-bold text-center text-lg">優良施工店</p>
               </div>
@@ -263,29 +225,14 @@ const AboutServiceSection = () => {
                 </div>
                 {/* 円形カード */}
                 <div className="w-52 h-52 md:w-56 md:h-56 bg-gradient-to-br from-white via-white to-[#fef7f0] rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex items-center justify-center border border-gray-100">
-                  <div className="text-center">
-                    {/* 円マーク + バツアイコン */}
-                    <div className="relative w-24 h-24 mx-auto mb-2">
-                      {/* 外側の円 - 点線 */}
-                      <svg className="w-24 h-24 absolute inset-0" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="42" fill="none" stroke="#fcd34d" strokeWidth="3" strokeDasharray="8 4" />
-                      </svg>
-                      {/* 内側の円 - 塗りつぶし */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-16 h-16 bg-gradient-to-br from-[#fcd34d] to-[#fbbf24] rounded-full flex items-center justify-center shadow-inner">
-                          <span className="text-3xl font-bold text-[#dc2626]">¥</span>
-                        </div>
-                      </div>
-                      {/* 右上のバツ印 */}
-                      <div className="absolute -top-1 -right-1 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
-                        <svg className="w-5 h-5 text-[#dc2626]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
-                          <line x1="6" y1="6" x2="18" y2="18"/>
-                          <line x1="18" y1="6" x2="6" y2="18"/>
-                        </svg>
-                      </div>
-                    </div>
-                    <p className="text-gray-500 text-sm font-medium">紹介手数料</p>
-                    <p className="text-[#f16f21] text-4xl font-bold tracking-tight">なし</p>
+                  <div className="text-center p-4">
+                    <Image
+                      src="/images/fee-zero.jpg"
+                      alt="紹介手数料なし"
+                      width={140}
+                      height={140}
+                      className="w-32 h-32 object-contain mx-auto"
+                    />
                   </div>
                 </div>
               </div>
@@ -313,34 +260,17 @@ const AboutServiceSection = () => {
                   </div>
                 </div>
                 {/* 円形カード */}
-                <div className="w-52 h-52 md:w-56 md:h-56 bg-gradient-to-br from-white via-white to-[#fef7f0] rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex items-center justify-center border border-gray-100">
-                  <div className="text-center">
-                    {/* 人物イラスト - 2人が繋がる */}
-                    <div className="flex items-center justify-center gap-1 mb-3">
-                      {/* 左の人（青） */}
-                      <div className="relative">
-                        <div className="w-10 h-10 bg-gradient-to-br from-[#3b82f6] to-[#2563eb] rounded-full"></div>
-                        <div className="w-7 h-12 bg-gradient-to-br from-[#3b82f6] to-[#2563eb] rounded-full absolute -bottom-8 left-1/2 -translate-x-1/2"></div>
-                      </div>
-                      {/* 矢印 */}
-                      <div className="flex flex-col items-center mx-1">
-                        <svg className="w-6 h-6 text-[#22c55e]" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                        </svg>
-                        <svg className="w-8 h-4 text-[#22c55e]" viewBox="0 0 32 16">
-                          <path d="M0 8 L24 8 M18 2 L24 8 L18 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      {/* 右の人（オレンジ） */}
-                      <div className="relative">
-                        <div className="w-10 h-10 bg-gradient-to-br from-[#f97316] to-[#ea580c] rounded-full"></div>
-                        <div className="w-7 h-12 bg-gradient-to-br from-[#fbbf24] to-[#f59e0b] rounded-full absolute -bottom-8 left-1/2 -translate-x-1/2"></div>
-                      </div>
-                    </div>
-                    <div className="mt-12">
-                      <p className="text-[#f16f21] text-2xl font-bold">直接</p>
-                      <p className="text-gray-700 text-sm font-medium">施工店とつながる</p>
-                    </div>
+                <div className="w-52 h-52 md:w-56 md:h-56 bg-gradient-to-br from-white via-white to-[#fef7f0] rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex flex-col items-center justify-center border border-gray-100 overflow-hidden relative">
+                  <Image
+                    src="/images/direct-connect.jpg"
+                    alt="直接施工店とつながる"
+                    width={224}
+                    height={224}
+                    className="absolute inset-0 w-full h-full object-cover scale-110"
+                  />
+                  <div className="relative z-10 mt-auto mb-4 text-center bg-white/80 px-3 py-1 rounded">
+                    <p className="text-[#f16f21] text-xl font-bold">直接</p>
+                    <p className="text-gray-700 text-xs font-medium">施工店とつながる</p>
                   </div>
                 </div>
               </div>
@@ -369,46 +299,14 @@ const AboutServiceSection = () => {
                 </div>
                 {/* 円形カード */}
                 <div className="w-52 h-52 md:w-56 md:h-56 bg-gradient-to-br from-white via-white to-[#fef7f0] rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex items-center justify-center border border-gray-100">
-                  <div className="text-center">
-                    {/* 見積書3枚 */}
-                    <div className="flex items-end justify-center gap-1 mb-2">
-                      {/* A社 */}
-                      <div className="w-14 bg-white rounded-md shadow-md border border-gray-200 p-2 transform -rotate-6">
-                        <div className="space-y-1 mb-2">
-                          <div className="h-1.5 bg-gray-200 rounded w-full"></div>
-                          <div className="h-1 bg-gray-100 rounded w-4/5"></div>
-                          <div className="h-1 bg-gray-100 rounded w-full"></div>
-                          <div className="h-1 bg-gray-100 rounded w-3/4"></div>
-                        </div>
-                        <p className="text-center text-xs font-bold">
-                          <span className="text-[#f97316]">A</span><span className="text-gray-700">社</span>
-                        </p>
-                      </div>
-                      {/* B社 - 中央、少し大きく */}
-                      <div className="w-16 bg-white rounded-md shadow-lg border border-gray-200 p-2 z-10 transform scale-105">
-                        <div className="space-y-1 mb-2">
-                          <div className="h-1.5 bg-gray-200 rounded w-full"></div>
-                          <div className="h-1 bg-gray-100 rounded w-4/5"></div>
-                          <div className="h-1 bg-gray-100 rounded w-full"></div>
-                          <div className="h-1 bg-gray-100 rounded w-3/4"></div>
-                        </div>
-                        <p className="text-center text-xs font-bold">
-                          <span className="text-[#3b82f6]">B</span><span className="text-gray-700">社</span>
-                        </p>
-                      </div>
-                      {/* C社 */}
-                      <div className="w-14 bg-white rounded-md shadow-md border border-gray-200 p-2 transform rotate-6">
-                        <div className="space-y-1 mb-2">
-                          <div className="h-1.5 bg-gray-200 rounded w-full"></div>
-                          <div className="h-1 bg-gray-100 rounded w-4/5"></div>
-                          <div className="h-1 bg-gray-100 rounded w-full"></div>
-                          <div className="h-1 bg-gray-100 rounded w-3/4"></div>
-                        </div>
-                        <p className="text-center text-xs font-bold">
-                          <span className="text-[#a855f7]">C</span><span className="text-gray-700">社</span>
-                        </p>
-                      </div>
-                    </div>
+                  <div className="text-center p-2">
+                    <Image
+                      src="/images/estimate-compare.jpg"
+                      alt="見積り比較"
+                      width={180}
+                      height={180}
+                      className="w-40 h-40 object-contain mx-auto"
+                    />
                   </div>
                 </div>
               </div>
