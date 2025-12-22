@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const DiagnosisForm = () => {
   const [formData, setFormData] = useState({
@@ -87,11 +88,14 @@ const DiagnosisForm = () => {
             {/* キャンペーンバナー */}
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4 inline-block">
               <div className="flex items-center justify-center gap-3">
-                <div className="w-12 h-12 bg-white rounded shadow-sm flex items-center justify-center">
-                  <svg className="w-8 h-8 text-[#f16f21]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/>
-                    <path d="M12 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/>
-                  </svg>
+                <div className="w-14 h-14 rounded overflow-hidden shrink-0">
+                  <Image
+                    src="/images/amazon-gift.jpg"
+                    alt="Amazonギフト券"
+                    width={56}
+                    height={56}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="text-left">
                   <p className="text-xs text-gray-600">相場診断でAmazonギフト券</p>
@@ -111,32 +115,32 @@ const DiagnosisForm = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* お名前 */}
               <div className="flex items-center">
-                <label className="w-32 text-sm text-gray-700 shrink-0">
+                <label className="w-24 sm:w-32 text-sm text-gray-700 shrink-0">
                   お名前
                 </label>
-                <span className="text-[#f16f21] text-xs mr-4">必須</span>
+                <span className="text-[#f16f21] text-xs mr-2 sm:mr-4 shrink-0">必須</span>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="山田 太郎"
-                  className="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900 placeholder-gray-400"
+                  className="flex-1 min-w-0 px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900 placeholder-gray-400"
                   required
                 />
               </div>
 
               {/* 都道府県 */}
               <div className="flex items-center">
-                <label className="w-32 text-sm text-gray-700 shrink-0">
+                <label className="w-24 sm:w-32 text-sm text-gray-700 shrink-0">
                   都道府県
                 </label>
-                <span className="text-[#f16f21] text-xs mr-4">必須</span>
+                <span className="text-[#f16f21] text-xs mr-2 sm:mr-4 shrink-0">必須</span>
                 <select
                   name="prefecture"
                   value={formData.prefecture}
                   onChange={handleInputChange}
-                  className="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900"
+                  className="flex-1 min-w-0 px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900"
                   required
                 >
                   <option value="">選択してください</option>
@@ -192,15 +196,15 @@ const DiagnosisForm = () => {
 
               {/* 延面積 */}
               <div className="flex items-center">
-                <label className="w-32 text-sm text-gray-700 shrink-0">
+                <label className="w-24 sm:w-32 text-sm text-gray-700 shrink-0">
                   延面積
                 </label>
-                <span className="text-[#f16f21] text-xs mr-4">必須</span>
+                <span className="text-[#f16f21] text-xs mr-2 sm:mr-4 shrink-0">必須</span>
                 <select
                   name="floorArea"
                   value={formData.floorArea}
                   onChange={handleInputChange}
-                  className="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900"
+                  className="flex-1 min-w-0 px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900"
                   required
                 >
                   <option value="">選択してください</option>
@@ -218,15 +222,15 @@ const DiagnosisForm = () => {
 
               {/* 現在の状況 */}
               <div className="flex items-center">
-                <label className="w-32 text-sm text-gray-700 shrink-0">
+                <label className="w-24 sm:w-32 text-sm text-gray-700 shrink-0">
                   現在の状況
                 </label>
-                <span className="text-[#f16f21] text-xs mr-4">必須</span>
+                <span className="text-[#f16f21] text-xs mr-2 sm:mr-4 shrink-0">必須</span>
                 <select
                   name="currentSituation"
                   value={formData.currentSituation}
                   onChange={handleInputChange}
-                  className="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900"
+                  className="flex-1 min-w-0 px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900"
                   required
                 >
                   <option value="">選択してください</option>
@@ -239,15 +243,15 @@ const DiagnosisForm = () => {
 
               {/* 工事箇所 */}
               <div className="flex items-center">
-                <label className="w-32 text-sm text-gray-700 shrink-0">
+                <label className="w-24 sm:w-32 text-sm text-gray-700 shrink-0">
                   工事箇所
                 </label>
-                <span className="text-[#f16f21] text-xs mr-4">必須</span>
+                <span className="text-[#f16f21] text-xs mr-2 sm:mr-4 shrink-0">必須</span>
                 <select
                   name="constructionType"
                   value={formData.constructionType}
                   onChange={handleInputChange}
-                  className="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900"
+                  className="flex-1 min-w-0 px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900"
                   required
                 >
                   <option value="">選択してください</option>
@@ -263,11 +267,11 @@ const DiagnosisForm = () => {
 
               {/* 携帯電話番号 */}
               <div className="flex items-start">
-                <label className="w-32 text-sm text-gray-700 shrink-0 pt-3">
+                <label className="w-24 sm:w-32 text-sm text-gray-700 shrink-0 pt-3">
                   携帯電話番号
                 </label>
-                <span className="text-[#f16f21] text-xs mr-4 pt-3">必須</span>
-                <div className="flex-1">
+                <span className="text-[#f16f21] text-xs mr-2 sm:mr-4 pt-3 shrink-0">必須</span>
+                <div className="flex-1 min-w-0">
                   <input
                     type="tel"
                     name="phone"
@@ -286,17 +290,17 @@ const DiagnosisForm = () => {
 
               {/* メールアドレス */}
               <div className="flex items-center">
-                <label className="w-32 text-sm text-gray-700 shrink-0">
+                <label className="w-24 sm:w-32 text-sm text-gray-700 shrink-0">
                   メールアドレス
                 </label>
-                <span className="text-gray-400 text-xs mr-4">任意</span>
+                <span className="text-gray-400 text-xs mr-2 sm:mr-4 shrink-0">任意</span>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="例: example@example.com"
-                  className="flex-1 px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900 placeholder-gray-400"
+                  className="flex-1 min-w-0 px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f16f21] focus:border-[#f16f21] text-gray-900 placeholder-gray-400"
                 />
               </div>
 

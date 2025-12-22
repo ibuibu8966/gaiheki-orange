@@ -98,7 +98,7 @@ const Header = () => {
               onClick={scrollToDiagnosisForm}
               className="bg-[#f16f21] hover:bg-[#e05a10] text-white px-6 py-2 rounded-lg text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg"
             >
-              60秒！無料相場診断
+              無料診断
             </button>
           </div>
 
@@ -190,7 +190,7 @@ const Header = () => {
                   }}
                   className="w-full bg-[#f16f21] hover:bg-[#e05a10] text-white px-6 py-3 rounded-lg text-sm font-bold transition-all duration-300 shadow-md hover:shadow-lg mt-2"
                 >
-                  60秒！無料相場診断
+                  無料診断
                 </button>
               </div>
             </nav>
