@@ -1,38 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/src/infrastructure/database/prisma.client';
+import { requirePartnerAuth } from '@/lib/utils/partnerAuth';
 import { generateCustomerInvoicePDF } from '@/lib/generateCustomerInvoicePDF';
-
-const prisma = new PrismaClient();
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const invoiceId = parseInt(params.id);
+    // 認証チェック
+    const { error, partnerId } = await requirePartnerAuth();
+    if (error) return error;
 
-    // TODO: 実際の認証実装後、セッションからpartner_idを取得して権限チェック
-    const partnerId = 1; // 仮のID
+    const { id } = await params;
+    const invoiceId = parseInt(id);
 
     // 請求書データを取得
-    const invoice = await prisma.customer_invoices.findUnique({
-      where: { id: invoiceId },
+    const invoice = await prisma.customer_invoices.findFirst({
+      where: {
+        id: invoiceId,
+        order: {
+          quotations: {
+            partner_id: partnerId,
+          },
+        },
+      },
       include: {
         order: {
           include: {
-            quotation: {
+            quotations: {
               include: {
-                diagnosis_request: {
+                diagnosis_requests: {
                   include: {
-                    customer: {
-                      include: {
-                        partners: {
-                          include: {
-                            partner_details: true,
-                          },
-                        },
-                      },
-                    },
+                    customers: true,
+                  },
+                },
+                partners: {
+                  include: {
+                    partner_details: true,
                   },
                 },
               },
@@ -45,25 +50,17 @@ export async function GET(
 
     if (!invoice) {
       return NextResponse.json(
-        { error: 'Invoice not found' },
+        { success: false, error: '請求書が見つかりません' },
         { status: 404 }
       );
     }
 
-    // Partner権限チェック
-    const customer = invoice.order.quotation.diagnosis_request.customer;
-    if (customer.partner_id !== partnerId) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 403 }
-      );
-    }
+    const customer = invoice.order.quotations.diagnosis_requests.customers;
+    const partnerDetails = invoice.order.quotations.partners.partner_details;
 
-    // Partner情報を取得
-    const partnerDetails = customer.partners.partner_details;
     if (!partnerDetails) {
       return NextResponse.json(
-        { error: 'Partner details not found' },
+        { success: false, error: 'パートナー情報が見つかりません' },
         { status: 404 }
       );
     }
@@ -110,9 +107,8 @@ export async function GET(
   } catch (error) {
     console.error('Error generating customer invoice PDF:', error);
     return NextResponse.json(
-      { error: 'Failed to generate PDF' },
+      { success: false, error: 'PDFの生成に失敗しました' },
       { status: 500 }
     );
   }
 }
-
