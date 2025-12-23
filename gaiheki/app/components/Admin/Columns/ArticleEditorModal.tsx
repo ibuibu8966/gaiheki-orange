@@ -154,23 +154,6 @@ const ArticleEditorModal = ({
     }
   };
 
-  const handlePreview = () => {
-    // プレビューページを新しいタブで開く
-    const previewData = {
-      title,
-      category,
-      categoryLabel: CATEGORIES.find((c) => c.value === category)?.label,
-      content,
-      thumbnailImage,
-    };
-
-    // プレビューデータをlocalStorageに保存
-    localStorage.setItem("articlePreview", JSON.stringify(previewData));
-
-    // 新しいタブでプレビューを開く
-    window.open("/admin-dashboard/columns/preview", "_blank");
-  };
-
   const generateSlug = (title: string): string => {
     const timestamp = Date.now();
     const randomStr = Math.random().toString(36).substring(2, 7);
@@ -205,12 +188,6 @@ const ArticleEditorModal = ({
               className="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600"
             >
               {isFullscreen ? "通常表示" : "全画面"}
-            </button>
-            <button
-              onClick={handlePreview}
-              className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700"
-            >
-              プレビュー
             </button>
             <button
               onClick={() => handleSave(false)}
