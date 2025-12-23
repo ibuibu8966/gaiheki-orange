@@ -398,16 +398,15 @@ export default function SettingsPage() {
                         {plan.is_default && <Badge>デフォルト</Badge>}
                       </TableCell>
                       <TableCell>
-                        <Button
-                          variant="outline"
-                          size="sm"
+                        <button
                           onClick={() => {
                             setEditingPlan(plan);
                             setIsEditModalOpen(true);
                           }}
+                          className="px-3 py-1.5 text-sm bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50"
                         >
                           編集
-                        </Button>
+                        </button>
                       </TableCell>
                     </TableRow>
                   ))}
