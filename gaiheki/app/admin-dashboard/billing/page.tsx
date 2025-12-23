@@ -66,6 +66,8 @@ interface GeneratedInvoice {
   }>;
 }
 
+const ITEMS_PER_PAGE = 20;
+
 export default function BillingManagementPage() {
   const router = useRouter();
   const [invoices, setInvoices] = useState<Invoice[]>([]);
@@ -81,15 +83,20 @@ export default function BillingManagementPage() {
   const [generating, setGenerating] = useState(false);
   const [selectedInvoiceIds, setSelectedInvoiceIds] = useState<number[]>([]);
   const [downloadingPDF, setDownloadingPDF] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     fetchInvoices();
-  }, [status]);
+  }, [status, currentPage]);
 
   const fetchInvoices = async () => {
     try {
       setLoading(true);
-      const params = new URLSearchParams({ page: '1', limit: '50' });
+      const params = new URLSearchParams({
+        page: currentPage.toString(),
+        limit: ITEMS_PER_PAGE.toString()
+      });
       if (status !== 'all') params.append('status', status);
 
       const res = await fetch(`/api/admin/invoices?${params}`);
@@ -97,6 +104,7 @@ export default function BillingManagementPage() {
 
       if (data.success) {
         setInvoices(data.data.invoices);
+        setTotalCount(data.data.total || 0);
       }
     } catch (error) {
       console.error('請求書一覧の取得に失敗しました:', error);
@@ -430,7 +438,7 @@ export default function BillingManagementPage() {
               <div className="flex gap-4 justify-between items-end">
                 <div className="w-48">
                   <Label className="text-sm font-medium text-gray-700">ステータスで絞り込み</Label>
-                  <Select value={status} onValueChange={setStatus}>
+                  <Select value={status} onValueChange={(val) => { setStatus(val); setCurrentPage(1); }}>
                     <SelectTrigger className="mt-1.5 bg-white border-gray-300 hover:border-gray-400">
                       <SelectValue placeholder="すべて" />
                     </SelectTrigger>
@@ -467,6 +475,7 @@ export default function BillingManagementPage() {
                   <p className="mt-2 text-gray-600">読み込み中...</p>
                 </div>
               ) : invoices.length > 0 ? (
+                <>
                 <div className="overflow-x-auto">
                   <Table>
                     <TableHeader>
@@ -536,6 +545,59 @@ export default function BillingManagementPage() {
                     </TableBody>
                   </Table>
                 </div>
+
+                {/* ページネーション */}
+                {totalCount > ITEMS_PER_PAGE && (
+                  <div className="flex justify-between items-center mt-6 pt-4 border-t">
+                    <div className="text-sm text-gray-600">
+                      全{totalCount}件中 {(currentPage - 1) * ITEMS_PER_PAGE + 1}〜{Math.min(currentPage * ITEMS_PER_PAGE, totalCount)}件を表示
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 text-sm bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+                      >
+                        前へ
+                      </button>
+                      <div className="flex items-center gap-1">
+                        {Array.from({ length: Math.ceil(totalCount / ITEMS_PER_PAGE) }, (_, i) => i + 1)
+                          .filter(page => {
+                            const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+                            if (totalPages <= 7) return true;
+                            if (page === 1 || page === totalPages) return true;
+                            if (Math.abs(page - currentPage) <= 2) return true;
+                            return false;
+                          })
+                          .map((page, index, array) => (
+                            <span key={page}>
+                              {index > 0 && array[index - 1] !== page - 1 && (
+                                <span className="px-2 text-gray-400">...</span>
+                              )}
+                              <button
+                                onClick={() => setCurrentPage(page)}
+                                className={`px-3 py-1 text-sm rounded-md ${
+                                  currentPage === page
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                                }`}
+                              >
+                                {page}
+                              </button>
+                            </span>
+                          ))}
+                      </div>
+                      <button
+                        onClick={() => setCurrentPage(prev => Math.min(Math.ceil(totalCount / ITEMS_PER_PAGE), prev + 1))}
+                        disabled={currentPage >= Math.ceil(totalCount / ITEMS_PER_PAGE)}
+                        className="px-4 py-2 text-sm bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+                      >
+                        次へ
+                      </button>
+                    </div>
+                  </div>
+                )}
+                </>
               ) : (
                 <p className="text-center text-gray-500 py-8">請求書がありません</p>
               )}
