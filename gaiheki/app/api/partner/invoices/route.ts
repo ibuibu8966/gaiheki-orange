@@ -6,10 +6,9 @@ import { generateCustomerInvoiceNumber, calculateTax } from '@/lib/utils/invoice
 // GET: 請求書一覧取得
 export async function GET(request: NextRequest) {
   try {
-    // 認証チェック（開発環境では一時的にバイパス）
-    // const { error, partnerId } = await requirePartnerAuth();
-    // if (error) return error;
-    const partnerId = 1; // 開発用: 仮のpartner_id
+    // 認証チェック
+    const { error, partnerId } = await requirePartnerAuth();
+    if (error) return error;
 
     // クエリパラメータ取得
     const searchParams = request.nextUrl.searchParams;
@@ -86,12 +85,22 @@ export async function GET(request: NextRequest) {
       id: invoice.id,
       invoice_number: invoice.invoice_number,
       order_id: invoice.order_id,
-      customer_name: invoice.order.quotations.diagnosis_requests.customers.customer_name,
-      project_name: '外壁塗装工事', // 仮の案件名
-      grand_total: invoice.grand_total,
       issue_date: invoice.issue_date.toISOString().split('T')[0],
       due_date: invoice.due_date.toISOString().split('T')[0],
+      total_amount: invoice.total_amount,
+      tax_amount: invoice.tax_amount,
+      grand_total: invoice.grand_total,
       status: invoice.status,
+      payment_date: invoice.payment_date ? invoice.payment_date.toISOString().split('T')[0] : null,
+      order: {
+        quotations: {
+          diagnosis_requests: {
+            customers: {
+              customer_name: invoice.order?.quotations?.diagnosis_requests?.customers?.customer_name || '不明',
+            },
+          },
+        },
+      },
     }));
 
     return NextResponse.json({
@@ -115,10 +124,9 @@ export async function GET(request: NextRequest) {
 // POST: 請求書作成
 export async function POST(request: NextRequest) {
   try {
-    // 認証チェック（開発環境では一時的にバイパス）
-    // const { error, partnerId } = await requirePartnerAuth();
-    // if (error) return error;
-    const partnerId = 1; // 開発用: 仮のpartner_id
+    // 認証チェック
+    const { error, partnerId } = await requirePartnerAuth();
+    if (error) return error;
 
     const body = await request.json();
     const { order_id, issue_date, due_date, items } = body;
