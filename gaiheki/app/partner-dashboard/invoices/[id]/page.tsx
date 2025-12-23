@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 
 interface InvoiceItem {
   id?: number;
@@ -199,12 +198,12 @@ export default function InvoiceDetailPage({ params }: { params: Promise<{ id: st
   };
 
   const getStatusBadge = (status: string) => {
-    const variants: { [key: string]: 'default' | 'secondary' | 'destructive' | 'outline' } = {
-      DRAFT: 'secondary',
-      UNPAID: 'outline',
-      PAID: 'default',
-      OVERDUE: 'destructive',
-      CANCELLED: 'outline',
+    const colors: { [key: string]: string } = {
+      DRAFT: 'bg-gray-500 text-white',
+      UNPAID: 'bg-yellow-500 text-white',
+      PAID: 'bg-green-600 text-white',
+      OVERDUE: 'bg-red-600 text-white',
+      CANCELLED: 'bg-gray-400 text-white',
     };
 
     const labels: { [key: string]: string } = {
@@ -215,7 +214,11 @@ export default function InvoiceDetailPage({ params }: { params: Promise<{ id: st
       CANCELLED: 'キャンセル',
     };
 
-    return <Badge variant={variants[status] || 'default'}>{labels[status] || status}</Badge>;
+    return (
+      <span className={`px-3 py-1 rounded-full text-sm font-medium ${colors[status] || 'bg-gray-500 text-white'}`}>
+        {labels[status] || status}
+      </span>
+    );
   };
 
   if (loading) {
