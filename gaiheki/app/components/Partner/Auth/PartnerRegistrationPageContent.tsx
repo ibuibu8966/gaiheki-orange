@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const PartnerRegistrationPageContent = () => {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     companyName: "",
     representativeName: "",
@@ -22,9 +25,35 @@ const PartnerRegistrationPageContent = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Partner registration form submitted:", formData);
+
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/partner/applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        router.push('/partner-registration/complete');
+      } else {
+        alert(data.error || '申請の送信に失敗しました');
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      console.error('Submit error:', error);
+      alert('申請の送信に失敗しました。もう一度お試しください。');
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -249,9 +278,14 @@ const PartnerRegistrationPageContent = () => {
           <div className="text-center pt-6">
             <button
               type="submit"
-              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-12 rounded-lg transition-colors text-lg"
+              disabled={isSubmitting}
+              className={`font-bold py-3 px-12 rounded-lg transition-colors text-lg ${
+                isSubmitting
+                  ? 'bg-gray-400 cursor-not-allowed text-white'
+                  : 'bg-orange-500 hover:bg-orange-600 text-white'
+              }`}
             >
-              この内容で申請する
+              {isSubmitting ? '送信中...' : 'この内容で申請する'}
             </button>
           </div>
         </form>
