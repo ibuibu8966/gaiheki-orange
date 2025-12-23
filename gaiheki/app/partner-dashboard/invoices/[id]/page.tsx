@@ -251,27 +251,43 @@ export default function InvoiceDetailPage({ params }: { params: Promise<{ id: st
           <p className="text-gray-600 mt-1">{getStatusBadge(invoice.status)}</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => router.back()}>
+          <button
+            onClick={() => router.back()}
+            className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
+          >
             戻る
-          </Button>
+          </button>
           {invoice.status === 'DRAFT' && !editing && (
             <>
-              <Button variant="outline" onClick={() => setEditing(true)}>
+              <button
+                onClick={() => setEditing(true)}
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
                 編集
-              </Button>
-              <Button onClick={handleIssue}>
+              </button>
+              <button
+                onClick={handleIssue}
+                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+              >
                 発行
-              </Button>
+              </button>
             </>
           )}
           {invoice.status === 'UNPAID' && (
-            <Button onClick={handlePaid}>
+            <button
+              onClick={handlePaid}
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+            >
               入金確認
-            </Button>
+            </button>
           )}
-          <Button variant="outline" onClick={handleDownloadPDF} disabled={pdfLoading}>
+          <button
+            onClick={handleDownloadPDF}
+            disabled={pdfLoading}
+            className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 disabled:bg-gray-400"
+          >
             {pdfLoading ? 'PDF準備中...' : 'PDF出力'}
-          </Button>
+          </button>
         </div>
       </div>
 
