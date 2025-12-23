@@ -7,16 +7,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import dynamic from 'next/dynamic';
-
-// PDFコンポーネントは動的にインポート（SSRを無効化）
-const PDFDownloadLink = dynamic(
-  () => import('@react-pdf/renderer').then((mod) => mod.PDFDownloadLink),
-  { ssr: false, loading: () => <Button variant="outline" disabled>PDF準備中...</Button> }
-);
-const InvoicePDF = dynamic(() => import('@/app/components/Partner/Invoice/InvoicePDF'), {
-  ssr: false,
-});
 
 interface InvoiceItem {
   id?: number;
@@ -65,6 +55,7 @@ export default function InvoiceDetailPage({ params }: { params: Promise<{ id: st
   const [issueDate, setIssueDate] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [items, setItems] = useState<InvoiceItem[]>([]);
+  const [pdfLoading, setPdfLoading] = useState(false);
 
   useEffect(() => {
     fetchInvoice();
@@ -86,6 +77,33 @@ export default function InvoiceDetailPage({ params }: { params: Promise<{ id: st
       console.error('請求書詳細の取得に失敗しました:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    if (!invoice) return;
+
+    try {
+      setPdfLoading(true);
+      const response = await fetch(`/api/partner/invoices/${invoice.id}/pdf`);
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${invoice.invoice_number}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } else {
+        alert('PDFのダウンロードに失敗しました');
+      }
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      alert('PDFのダウンロードに失敗しました');
+    } finally {
+      setPdfLoading(false);
     }
   };
 
@@ -251,32 +269,9 @@ export default function InvoiceDetailPage({ params }: { params: Promise<{ id: st
               入金確認
             </Button>
           )}
-          <PDFDownloadLink
-            document={
-              <InvoicePDF
-                invoice={{
-                  invoice_number: invoice.invoice_number,
-                  customer: invoice.customer,
-                  issue_date: invoice.issue_date,
-                  due_date: invoice.due_date,
-                  items: invoice.items,
-                  total_amount: invoice.total_amount,
-                  tax_amount: invoice.tax_amount,
-                  grand_total: invoice.grand_total,
-                  company_name: invoice.partner_details?.company_name,
-                  company_address: invoice.partner_details?.address,
-                  company_phone: invoice.partner_details?.phone_number,
-                }}
-              />
-            }
-            fileName={`${invoice.invoice_number}.pdf`}
-          >
-            {({ loading }) => (
-              <Button variant="outline" disabled={loading}>
-                {loading ? 'PDF準備中...' : 'PDF出力'}
-              </Button>
-            )}
-          </PDFDownloadLink>
+          <Button variant="outline" onClick={handleDownloadPDF} disabled={pdfLoading}>
+            {pdfLoading ? 'PDF準備中...' : 'PDF出力'}
+          </Button>
         </div>
       </div>
 
