@@ -118,15 +118,6 @@ const CaseStudySection = () => {
           ))}
         </div>
 
-        {/* もっと見るボタン */}
-        <div className="text-center mt-10">
-          <button className="inline-flex items-center justify-center bg-white border-2 border-[#f16f21] text-[#f16f21] font-bold py-3 px-8 rounded-lg hover:bg-[#f16f21] hover:text-white transition-all duration-300">
-            施工実績をもっと見る
-            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
       </div>
     </section>
   );

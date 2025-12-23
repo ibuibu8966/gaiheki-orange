@@ -104,10 +104,6 @@ const DiagnosisForm = () => {
                 </div>
               </div>
             </div>
-
-            <p className="text-sm text-gray-500 underline cursor-pointer hover:text-[#f16f21]">
-              プレゼント適用の詳細はこちら
-            </p>
           </div>
 
           {/* 右側: フォーム */}
