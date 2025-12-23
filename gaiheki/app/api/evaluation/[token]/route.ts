@@ -50,16 +50,24 @@ export async function GET(
     // ステータスが施工完了または評価完了でない場合はエラー
     if (order.order_status !== "COMPLETED" && order.order_status !== "REVIEW_COMPLETED") {
       return NextResponse.json(
-        { success: false, error: "Order is not eligible for evaluation" },
+        { success: false, error: `受注ステータスが施工完了ではありません（現在: ${order.order_status}）` },
         { status: 400 }
       );
     }
 
     // 既に評価済みの場合
     const customer = order.quotations.diagnosis_requests.customers;
-    if (customer.customer_rating !== null) {
+    if (customer && customer.customer_rating !== null) {
       return NextResponse.json(
-        { success: false, error: "Evaluation already submitted" },
+        { success: false, error: "この施工は既に評価済みです" },
+        { status: 400 }
+      );
+    }
+
+    // 顧客データがない場合
+    if (!customer) {
+      return NextResponse.json(
+        { success: false, error: "顧客データが見つかりません" },
         { status: 400 }
       );
     }

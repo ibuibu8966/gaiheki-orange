@@ -12,6 +12,7 @@ export default function EvaluationPage() {
   const [valid, setValid] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [order, setOrder] = useState<any>(null);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const [rating, setRating] = useState(0);
   const [reviewTitle, setReviewTitle] = useState("");
@@ -34,10 +35,12 @@ export default function EvaluationPage() {
         setOrder(result.data);
       } else {
         setValid(false);
+        setErrorMessage(result.error || "不明なエラー");
       }
     } catch (error) {
       console.error("Error verifying token:", error);
       setValid(false);
+      setErrorMessage("サーバーとの通信に失敗しました");
     } finally {
       setLoading(false);
     }
@@ -97,9 +100,9 @@ export default function EvaluationPage() {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-lg shadow p-8 max-w-md w-full text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">無効なリンク</h1>
+          <h1 className="text-2xl font-bold text-red-600 mb-4">エラー</h1>
           <p className="text-gray-600">
-            このリンクは無効か、すでに使用済みです。
+            {errorMessage || "このリンクは無効か、すでに使用済みです。"}
           </p>
         </div>
       </div>
