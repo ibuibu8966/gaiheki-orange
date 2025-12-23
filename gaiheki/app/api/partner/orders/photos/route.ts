@@ -3,7 +3,24 @@ import { prisma } from '../../../../../src/infrastructure/database/prisma.client
 import { getIronSession } from 'iron-session';
 import { sessionOptions, SessionData } from '../../../../../src/lib/session';
 import { cookies } from 'next/headers';
-import { put } from '@vercel/blob';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+
+// Supabaseクライアントを遅延初期化
+let supabase: SupabaseClient | null = null;
+
+function getSupabaseClient() {
+  if (!supabase) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!supabaseUrl || !supabaseServiceKey) {
+      throw new Error('Supabase環境変数が設定されていません');
+    }
+
+    supabase = createClient(supabaseUrl, supabaseServiceKey);
+  }
+  return supabase;
+}
 
 // POST: 写真をアップロード
 export async function POST(request: NextRequest) {
@@ -62,16 +79,34 @@ export async function POST(request: NextRequest) {
       const originalName = photo.name.replace(/[^a-zA-Z0-9.-]/g, '_');
       const fileName = `orders/${orderId}/${timestamp}_${originalName}`;
 
-      // Vercel Blobにアップロード
-      const blob = await put(fileName, photo, {
-        access: 'public',
-      });
+      // ファイルをArrayBufferに変換
+      const arrayBuffer = await photo.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      // Supabase Storageにアップロード
+      const client = getSupabaseClient();
+      const { data, error } = await client.storage
+        .from('order-photos')
+        .upload(fileName, buffer, {
+          contentType: photo.type,
+          upsert: false
+        });
+
+      if (error) {
+        console.error('Supabase upload error:', error);
+        throw new Error(`アップロードエラー: ${error.message}`);
+      }
+
+      // 公開URLを取得
+      const { data: urlData } = client.storage
+        .from('order-photos')
+        .getPublicUrl(fileName);
 
       // DBに保存
       const savedPhoto = await prisma.order_photos.create({
         data: {
           order_id: parseInt(orderId as string),
-          photo_url: blob.url,
+          photo_url: urlData.publicUrl,
           photo_type: 'construction',
           description: null,
           uploaded_at: new Date(),
