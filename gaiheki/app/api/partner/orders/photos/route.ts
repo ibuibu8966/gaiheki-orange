@@ -3,9 +3,7 @@ import { prisma } from '../../../../../src/infrastructure/database/prisma.client
 import { getIronSession } from 'iron-session';
 import { sessionOptions, SessionData } from '../../../../../src/lib/session';
 import { cookies } from 'next/headers';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
-import { existsSync } from 'fs';
+import { put } from '@vercel/blob';
 
 // POST: 写真をアップロード
 export async function POST(request: NextRequest) {
@@ -56,33 +54,24 @@ export async function POST(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // アップロードディレクトリを作成
-    const uploadDir = join(process.cwd(), 'public', 'uploads', 'orders', orderId as string);
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true });
-    }
-
     // 写真をアップロードしてDBに保存
     const uploadedPhotos = [];
     for (const photo of photos) {
-      const bytes = await photo.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-
       // ファイル名を生成（タイムスタンプ + オリジナル名）
       const timestamp = Date.now();
       const originalName = photo.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-      const fileName = `${timestamp}_${originalName}`;
-      const filePath = join(uploadDir, fileName);
+      const fileName = `orders/${orderId}/${timestamp}_${originalName}`;
 
-      // ファイルを保存
-      await writeFile(filePath, buffer);
+      // Vercel Blobにアップロード
+      const blob = await put(fileName, photo, {
+        access: 'public',
+      });
 
       // DBに保存
-      const photoUrl = `/uploads/orders/${orderId}/${fileName}`;
       const savedPhoto = await prisma.order_photos.create({
         data: {
           order_id: parseInt(orderId as string),
-          photo_url: photoUrl,
+          photo_url: blob.url,
           photo_type: 'construction',
           description: null,
           uploaded_at: new Date(),
