@@ -14,10 +14,10 @@ interface CustomerInvoice {
   grand_total: number;
   status: string;
   payment_date: string | null;
-  order: {
-    quotations: {
-      diagnosis_requests: {
-        customers: {
+  order?: {
+    quotations?: {
+      diagnosis_requests?: {
+        customers?: {
           customer_name: string;
         };
       };
@@ -146,7 +146,7 @@ export default function PartnerInvoicesPage() {
                     {invoice.invoice_number}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {invoice.order.quotations.diagnosis_requests.customers.customer_name}
+                    {invoice.order?.quotations?.diagnosis_requests?.customers?.customer_name || '不明'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(invoice.issue_date).toLocaleDateString('ja-JP')}
