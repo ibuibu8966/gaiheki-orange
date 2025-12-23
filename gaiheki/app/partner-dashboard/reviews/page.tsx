@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 
 // 工事内容のラベルマッピング
 const CONSTRUCTION_TYPE_LABELS: Record<string, string> = {
+  EXTERIOR_PAINTING: "外壁塗装",
+  ROOF_PAINTING: "屋根塗装",
+  EXTERIOR_AND_ROOF: "外壁・屋根塗装",
+  PARTIAL_REPAIR: "部分補修",
+  WATERPROOFING: "防水工事",
+  SIDING_REPLACEMENT: "サイディング張替",
+  FULL_REPLACEMENT: "全面張替",
   PAINTING: "外壁塗装",
   RENOVATION: "リフォーム",
   REPAIR: "修繕",
