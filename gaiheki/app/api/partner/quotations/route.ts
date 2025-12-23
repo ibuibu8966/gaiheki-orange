@@ -4,6 +4,72 @@ import { getIronSession } from 'iron-session';
 import { sessionOptions, SessionData } from '../../../../src/lib/session';
 import { cookies } from 'next/headers';
 
+// GET: 自社の見積もり一覧を取得
+export async function GET() {
+  try {
+    // セッションからpartnerIdを取得
+    const session = await getIronSession<SessionData>(await cookies(), sessionOptions);
+
+    if (!session.isLoggedIn || !session.partnerId) {
+      return NextResponse.json({
+        success: false,
+        error: 'ログインが必要です'
+      }, { status: 401 });
+    }
+
+    const partnerId = session.partnerId;
+
+    // 自社の見積もり一覧を取得
+    const quotations = await prisma.quotations.findMany({
+      where: {
+        partner_id: partnerId
+      },
+      include: {
+        diagnosis_requests: {
+          include: {
+            customers: true
+          }
+        },
+        orders: true
+      },
+      orderBy: {
+        created_at: 'desc'
+      }
+    });
+
+    const formattedQuotations = quotations.map(q => ({
+      id: q.id,
+      diagnosisRequestId: q.diagnosis_request_id,
+      diagnosisNumber: q.diagnosis_requests.diagnosis_number,
+      amount: q.quotation_amount,
+      appealText: q.appeal_text,
+      isSelected: q.is_selected,
+      createdAt: q.created_at.toISOString(),
+      customer: q.diagnosis_requests.customers ? {
+        name: q.diagnosis_requests.customers.customer_name,
+        phone: q.diagnosis_requests.customers.customer_phone,
+        email: q.diagnosis_requests.customers.customer_email
+      } : null,
+      order: q.orders ? {
+        id: q.orders.id,
+        status: q.orders.order_status
+      } : null
+    }));
+
+    return NextResponse.json({
+      success: true,
+      data: formattedQuotations
+    });
+
+  } catch (error) {
+    console.error('Quotations fetch error:', error);
+    return NextResponse.json({
+      success: false,
+      error: '見積もり一覧の取得に失敗しました'
+    }, { status: 500 });
+  }
+}
+
 // POST: 見積もりを提出
 export async function POST(request: NextRequest) {
   try {
