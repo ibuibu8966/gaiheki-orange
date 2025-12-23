@@ -98,7 +98,7 @@ export default function PartnerInvoicesPage() {
     }
   };
 
-  const handleDownloadPDF = async (invoiceId: number) => {
+  const handleDownloadCustomerPDF = async (invoiceId: number) => {
     try {
       const response = await fetch(`/api/partner/invoices/${invoiceId}/pdf`);
       if (response.ok) {
@@ -107,6 +107,28 @@ export default function PartnerInvoicesPage() {
         const a = document.createElement('a');
         a.href = url;
         a.download = `invoice_${invoiceId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } else {
+        alert('PDFのダウンロードに失敗しました');
+      }
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      alert('PDFのダウンロードに失敗しました');
+    }
+  };
+
+  const handleDownloadCompanyPDF = async (invoiceId: number) => {
+    try {
+      const response = await fetch(`/api/partner/billing/${invoiceId}/pdf`);
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `billing_${invoiceId}.pdf`;
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
@@ -242,7 +264,7 @@ export default function PartnerInvoicesPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button
-                          onClick={() => handleDownloadPDF(invoice.id)}
+                          onClick={() => handleDownloadCustomerPDF(invoice.id)}
                           className="text-blue-600 hover:text-blue-900 mr-4"
                         >
                           PDF
@@ -325,6 +347,12 @@ export default function PartnerInvoicesPage() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button
+                          onClick={() => handleDownloadCompanyPDF(invoice.id)}
+                          className="text-blue-600 hover:text-blue-900 mr-4"
+                        >
+                          PDF
+                        </button>
                         <Link
                           href={`/partner-dashboard/billing/${invoice.id}`}
                           className="text-indigo-600 hover:text-indigo-900"
