@@ -120,8 +120,18 @@ export async function PUT(
       );
     }
 
-    // amountを数値に変換
-    const parsedItems = items.map((item: any) => ({
+    // itemsのバリデーション
+    if (!items || !Array.isArray(items)) {
+      return NextResponse.json(
+        { success: false, error: '請求項目が不正です' },
+        { status: 400 }
+      );
+    }
+
+    // amountを数値に変換（空の項目は除外）
+    const parsedItems = items
+      .filter((item: any) => item && (item.description || item.amount))
+      .map((item: any) => ({
       description: item.description || '',
       amount: typeof item.amount === 'string' ? parseInt(item.amount) || 0 : (item.amount || 0),
       related_order_id: item.related_order_id || null,
