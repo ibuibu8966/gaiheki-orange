@@ -143,7 +143,7 @@ export async function PUT(
 
     await prisma.$transaction(async (tx) => {
       await tx.company_invoice_items.deleteMany({
-        where: { company_invoice_id: invoiceId },
+        where: { invoice_id: invoiceId },
       });
 
       await tx.company_invoices.update({
