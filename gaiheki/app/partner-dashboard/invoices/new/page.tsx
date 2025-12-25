@@ -28,13 +28,29 @@ interface Order {
   construction_amount: number;
 }
 
+// 日付をYYYY-MM-DD形式にフォーマット
+const formatDate = (date: Date) => date.toISOString().split('T')[0];
+
+// 今日の日付と1ヶ月後の日付
+const getDefaultDates = () => {
+  const today = new Date();
+  const nextMonth = new Date(today);
+  nextMonth.setMonth(nextMonth.getMonth() + 1);
+  return {
+    today: formatDate(today),
+    nextMonth: formatDate(nextMonth),
+  };
+};
+
 export default function NewInvoicePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrderId, setSelectedOrderId] = useState('');
-  const [issueDate, setIssueDate] = useState('');
-  const [dueDate, setDueDate] = useState('');
+
+  const defaultDates = getDefaultDates();
+  const [issueDate, setIssueDate] = useState(defaultDates.today);
+  const [dueDate, setDueDate] = useState(defaultDates.nextMonth);
   const [items, setItems] = useState<InvoiceItem[]>([
     { description: '', quantity: 1, unit: '式', unit_price: 0, amount: 0 },
   ]);
@@ -66,7 +82,14 @@ export default function NewInvoicePage() {
 
   const updateItem = (index: number, field: keyof InvoiceItem, value: any) => {
     const newItems = [...items];
-    newItems[index] = { ...newItems[index], [field]: value };
+
+    // 数値フィールドの場合、NaNを防ぐ
+    if (field === 'quantity' || field === 'unit_price' || field === 'amount') {
+      const numValue = parseFloat(value);
+      newItems[index] = { ...newItems[index], [field]: isNaN(numValue) ? 0 : numValue };
+    } else {
+      newItems[index] = { ...newItems[index], [field]: value };
+    }
 
     // 金額を自動計算
     if (field === 'quantity' || field === 'unit_price') {
@@ -200,8 +223,8 @@ export default function NewInvoicePage() {
                   <Label>数量</Label>
                   <Input
                     type="number"
-                    value={item.quantity}
-                    onChange={(e) => updateItem(index, 'quantity', parseFloat(e.target.value))}
+                    value={item.quantity || ''}
+                    onChange={(e) => updateItem(index, 'quantity', e.target.value)}
                     min="0"
                     step="0.01"
                     required
@@ -220,8 +243,8 @@ export default function NewInvoicePage() {
                   <Label>単価</Label>
                   <Input
                     type="number"
-                    value={item.unit_price}
-                    onChange={(e) => updateItem(index, 'unit_price', parseInt(e.target.value))}
+                    value={item.unit_price || ''}
+                    onChange={(e) => updateItem(index, 'unit_price', e.target.value)}
                     min="0"
                     required
                   />
