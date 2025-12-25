@@ -151,6 +151,25 @@ export default function PartnerInvoicesPage() {
     }
   };
 
+  const handleStatusChange = async (invoiceId: number, newStatus: string) => {
+    try {
+      const response = await fetch(`/api/partner/invoices/${invoiceId}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      if (response.ok) {
+        // 一覧を再取得
+        fetchCustomerInvoices();
+      } else {
+        alert('ステータスの更新に失敗しました');
+      }
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('ステータスの更新に失敗しました');
+    }
+  };
+
   const getStatusLabel = (status: string) => {
     const statusMap: { [key: string]: string } = {
       DRAFT: '下書き',
@@ -289,11 +308,17 @@ export default function PartnerInvoicesPage() {
                         ¥{invoice.grand_total.toLocaleString()}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span
-                          className={`px-3 py-1 text-xs font-semibold rounded-full ${getStatusColor(invoice.status)}`}
+                        <select
+                          value={invoice.status}
+                          onChange={(e) => handleStatusChange(invoice.id, e.target.value)}
+                          className="px-3 py-1 text-sm font-semibold rounded-md border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                          {getStatusLabel(invoice.status)}
-                        </span>
+                          <option value="DRAFT">下書き</option>
+                          <option value="UNPAID">未払い</option>
+                          <option value="PAID">支払済</option>
+                          <option value="OVERDUE">期限切れ</option>
+                          <option value="CANCELLED">キャンセル</option>
+                        </select>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button
