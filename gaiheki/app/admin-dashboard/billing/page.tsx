@@ -13,14 +13,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -29,7 +27,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import dynamic from 'next/dynamic';
 
 // PDFコンポーネントは動的にインポート（SSRを無効化）
 // サーバーサイドPDF生成に変更したため、これらは不要
@@ -273,36 +270,34 @@ export default function BillingManagementPage() {
     );
   };
 
-  const getStatusBadge = (status: string) => {
-    const variants: { [key: string]: 'default' | 'secondary' | 'destructive' | 'outline' } = {
-      DRAFT: 'secondary',
-      UNPAID: 'outline',
-      PAID: 'default',
-      OVERDUE: 'destructive',
-      CANCELLED: 'outline',
-    };
+  const handleStatusChange = async (invoiceId: number, newStatus: string) => {
+    try {
+      const response = await fetch(`/api/admin/invoices/${invoiceId}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      if (response.ok) {
+        fetchInvoices();
+      } else {
+        const data = await response.json();
+        alert(data.error || 'ステータスの更新に失敗しました');
+      }
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('ステータスの更新に失敗しました');
+    }
+  };
 
-    const labels: { [key: string]: string } = {
-      DRAFT: '下書き',
-      UNPAID: '未払い',
-      PAID: '支払い済み',
-      OVERDUE: '遅延',
-      CANCELLED: 'キャンセル',
+  const getSelectColor = (status: string) => {
+    const colorMap: { [key: string]: string } = {
+      DRAFT: 'bg-gray-500 text-white border-gray-500',
+      UNPAID: 'bg-orange-500 text-white border-orange-500',
+      PAID: 'bg-green-600 text-white border-green-600',
+      OVERDUE: 'bg-red-600 text-white border-red-600',
+      CANCELLED: 'bg-gray-400 text-white border-gray-400',
     };
-
-    const customClasses: { [key: string]: string } = {
-      UNPAID: 'border-orange-500 text-orange-700 bg-orange-50',
-      CANCELLED: 'border-gray-400 text-gray-700 bg-gray-50',
-    };
-
-    return (
-      <Badge
-        variant={variants[status] || 'default'}
-        className={customClasses[status] || ''}
-      >
-        {labels[status] || status}
-      </Badge>
-    );
+    return colorMap[status] || 'bg-gray-500 text-white border-gray-500';
   };
 
   const years = Array.from({ length: 5 }, (_, i) => new Date().getFullYear() - i);
@@ -529,7 +524,19 @@ export default function BillingManagementPage() {
                           </TableCell>
                           <TableCell>{invoice.issue_date}</TableCell>
                           <TableCell>{invoice.due_date}</TableCell>
-                          <TableCell>{getStatusBadge(invoice.status)}</TableCell>
+                          <TableCell>
+                            <select
+                              value={invoice.status}
+                              onChange={(e) => handleStatusChange(invoice.id, e.target.value)}
+                              className={`px-3 py-1 text-sm font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${getSelectColor(invoice.status)}`}
+                            >
+                              <option value="DRAFT" className="bg-white text-gray-900">下書き</option>
+                              <option value="UNPAID" className="bg-white text-gray-900">未払い</option>
+                              <option value="PAID" className="bg-white text-gray-900">支払済</option>
+                              <option value="OVERDUE" className="bg-white text-gray-900">期限切れ</option>
+                              <option value="CANCELLED" className="bg-white text-gray-900">キャンセル</option>
+                            </select>
+                          </TableCell>
                           <TableCell>
                             <Button
                               variant="outline"
