@@ -184,12 +184,23 @@ export default function PartnerInvoicesPage() {
   const getStatusColor = (status: string) => {
     const colorMap: { [key: string]: string } = {
       DRAFT: 'bg-gray-500 text-white',
-      UNPAID: 'bg-yellow-500 text-white',
+      UNPAID: 'bg-orange-500 text-white',
       PAID: 'bg-green-600 text-white',
       OVERDUE: 'bg-red-600 text-white',
       CANCELLED: 'bg-gray-400 text-white',
     };
     return colorMap[status] || 'bg-gray-500 text-white';
+  };
+
+  const getSelectColor = (status: string) => {
+    const colorMap: { [key: string]: string } = {
+      DRAFT: 'bg-gray-500 text-white border-gray-500',
+      UNPAID: 'bg-orange-500 text-white border-orange-500',
+      PAID: 'bg-green-600 text-white border-green-600',
+      OVERDUE: 'bg-red-600 text-white border-red-600',
+      CANCELLED: 'bg-gray-400 text-white border-gray-400',
+    };
+    return colorMap[status] || 'bg-gray-500 text-white border-gray-500';
   };
 
   if (loading) {
@@ -311,13 +322,13 @@ export default function PartnerInvoicesPage() {
                         <select
                           value={invoice.status}
                           onChange={(e) => handleStatusChange(invoice.id, e.target.value)}
-                          className="px-3 py-1 text-sm font-semibold rounded-md border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className={`px-3 py-1 text-sm font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${getSelectColor(invoice.status)}`}
                         >
-                          <option value="DRAFT">下書き</option>
-                          <option value="UNPAID">未払い</option>
-                          <option value="PAID">支払済</option>
-                          <option value="OVERDUE">期限切れ</option>
-                          <option value="CANCELLED">キャンセル</option>
+                          <option value="DRAFT" className="bg-white text-gray-900">下書き</option>
+                          <option value="UNPAID" className="bg-white text-gray-900">未払い</option>
+                          <option value="PAID" className="bg-white text-gray-900">支払済</option>
+                          <option value="OVERDUE" className="bg-white text-gray-900">期限切れ</option>
+                          <option value="CANCELLED" className="bg-white text-gray-900">キャンセル</option>
                         </select>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
