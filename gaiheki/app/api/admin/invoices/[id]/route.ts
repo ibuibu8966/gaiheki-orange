@@ -120,7 +120,14 @@ export async function PUT(
       );
     }
 
-    const totalAmount = items.reduce((sum: number, item: any) => sum + item.amount, 0);
+    // amountを数値に変換
+    const parsedItems = items.map((item: any) => ({
+      description: item.description || '',
+      amount: typeof item.amount === 'string' ? parseInt(item.amount) || 0 : (item.amount || 0),
+      related_order_id: item.related_order_id || null,
+    }));
+
+    const totalAmount = parsedItems.reduce((sum: number, item: any) => sum + item.amount, 0);
     const taxAmount = Math.floor(totalAmount * 0.1);
     const grandTotal = totalAmount + taxAmount;
 
@@ -138,11 +145,7 @@ export async function PUT(
           tax_amount: taxAmount,
           grand_total: grandTotal,
           invoice_items: {
-            create: items.map((item: any) => ({
-              description: item.description,
-              amount: item.amount,
-              related_order_id: item.related_order_id || null,
-            })),
+            create: parsedItems,
           },
         },
       });
