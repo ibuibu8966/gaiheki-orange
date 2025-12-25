@@ -51,6 +51,7 @@ export default function PartnerInvoicesPage() {
   const [customerInvoices, setCustomerInvoices] = useState<CustomerInvoice[]>([]);
   const [companyInvoices, setCompanyInvoices] = useState<CompanyInvoice[]>([]);
   const [loading, setLoading] = useState(true);
+  const [statusFilter, setStatusFilter] = useState('all');
 
   useEffect(() => {
     if (activeTab === 'customer') {
@@ -58,12 +59,16 @@ export default function PartnerInvoicesPage() {
     } else {
       fetchCompanyInvoices();
     }
-  }, [activeTab]);
+  }, [activeTab, statusFilter]);
 
   const fetchCustomerInvoices = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/partner/invoices');
+      const params = new URLSearchParams();
+      if (statusFilter !== 'all') {
+        params.append('status', statusFilter);
+      }
+      const response = await fetch(`/api/partner/invoices?${params}`);
       if (response.ok) {
         const result = await response.json();
         if (result.success && result.data) {
@@ -82,7 +87,11 @@ export default function PartnerInvoicesPage() {
   const fetchCompanyInvoices = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/partner/billing');
+      const params = new URLSearchParams();
+      if (statusFilter !== 'all') {
+        params.append('status', statusFilter);
+      }
+      const response = await fetch(`/api/partner/billing?${params}`);
       if (response.ok) {
         const result = await response.json();
         if (result.success && result.data) {
@@ -184,28 +193,46 @@ export default function PartnerInvoicesPage() {
         </Link>
       </div>
 
-      {/* タブ切り替え */}
-      <div className="flex gap-2 mb-6">
-        <button
-          onClick={() => setActiveTab('customer')}
-          className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-            activeTab === 'customer'
-              ? 'bg-blue-600 text-white'
-              : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-          }`}
-        >
-          顧客への請求
-        </button>
-        <button
-          onClick={() => setActiveTab('company')}
-          className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-            activeTab === 'company'
-              ? 'bg-blue-600 text-white'
-              : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-          }`}
-        >
-          運営からの請求
-        </button>
+      {/* タブ切り替えとフィルター */}
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setActiveTab('customer')}
+            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+              activeTab === 'customer'
+                ? 'bg-blue-600 text-white'
+                : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            顧客への請求
+          </button>
+          <button
+            onClick={() => setActiveTab('company')}
+            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+              activeTab === 'company'
+                ? 'bg-blue-600 text-white'
+                : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            運営からの請求
+          </button>
+        </div>
+        <div className="flex items-center gap-2">
+          <label htmlFor="statusFilter" className="text-sm text-gray-600">ステータス:</label>
+          <select
+            id="statusFilter"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="all">すべて</option>
+            <option value="DRAFT">下書き</option>
+            <option value="UNPAID">未払い</option>
+            <option value="PAID">支払済</option>
+            <option value="OVERDUE">期限切れ</option>
+            <option value="CANCELLED">キャンセル</option>
+          </select>
+        </div>
       </div>
 
       {/* 顧客への請求書一覧 */}
